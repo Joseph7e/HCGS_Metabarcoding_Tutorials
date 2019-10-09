@@ -13,6 +13,8 @@ Workflow for qiime2 workshop
 
 ['Getting Oriented'](https://docs.qiime2.org/2019.7/tutorials/overview/#let-s-get-oriented-flowcharts):
 
+['Metadata file'](https://docs.google.com/spreadsheets/d/1ZiRFItD26vgetcQQft41yiZgTJULstbdYrcprlgLws0/edit?usp=sharing)
+
 ## Starting Data:
 Your starting data is found within a shared HCGS directory. To start we will make a working directory and move all the sample data into it. Inside each sample directory are Illumina HiSeq 2500, paired-end, 250 bp sequencing reads. Looking in this directory you should see two files per sample, the forward and reverse reads. These files are in **FASTQ** format.
 
