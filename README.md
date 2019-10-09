@@ -44,7 +44,7 @@ sed 's/:/_/g' total_reads.txt | awk -F'_' '{print $1,$2,"TGATCCTTCTGCAGGTTCACCTA
 echo -e "#SampleID\tBarcodeSequence\tLinkerPrimerSequence\tReadCounts\tDescription" | cat - mapping_file.tsv > temp && mv temp mapping_file.tsv
 ```
 
-* Edit the mapping file if needed
+* Edit the mapping file if needed, see link above
 
 
 * Activate the qiime environment
