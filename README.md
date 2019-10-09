@@ -1,6 +1,8 @@
 # HCGS_Qiime2_Tutorial
 Workflow for qiime2 workshop
 
+![alt text](https://pbs.twimg.com/profile_images/788836988933681153/5x29uqk3_400x400.jpg)
+
 ## Useful Links:
 
 [Devins workflow](https://bitbucket.org/dwthomas/workshop-notes/src/master/QIIME%2016S%20walkthrough%20T3%202019.md)
