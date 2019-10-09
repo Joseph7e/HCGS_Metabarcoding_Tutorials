@@ -72,6 +72,7 @@ qiime tools import\
 
 * visualize raw data
 ```bash
+mkdir visuals
 qiime demux summarize   --i-data demuxed-raw-reads.qza   --o-visualization visuals/demuxed-raw-reads
 ```
 
@@ -126,3 +127,15 @@ qiime tools import --type 'FeatureData[Sequence]'  --input-path silva_132_99_16S
 ```bash
 qiime feature-classifier classify-consensus-blast --i-query rep-seqs.qza --i-reference-taxonomy reference_database/qiime-ref-taxonomy_99.qza --i-reference-reads reference_database/reference-seqs.qza --o-classification classification_blast.qza --p-perc-identity 0.8 --p-maxaccepts 1
 ```
+
+* Visualize taxonomy
+```bash
+qiime metadata tabulate\
+   --m-input-file classification_sklearn.qza \
+   --o-visualization visuals/taxonomy.qzv
+
+qiime taxa barplot --i-table table.qza\
+   --i-taxonomy classification_sklearn.qza \
+   --o-visualization visuals/taxa-barplot-sklearn \
+   --m-metadata-file mapping_file.tsv
+   ```
