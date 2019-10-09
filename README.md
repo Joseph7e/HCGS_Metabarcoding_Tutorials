@@ -3,6 +3,8 @@ Workflow for qiime2 workshop
 
 ## Useful Links:
 
+[Devins workflow](https://bitbucket.org/dwthomas/workshop-notes/src/master/QIIME%2016S%20walkthrough%20T3%202019.md)
+
 ['QIIME2'](https://docs.qiime2.org/2019.7/):https://docs.qiime2.org/2019.7/
 
 ['QIIME2 visuals'](https://view.qiime2.org/):https://view.qiime2.org/
