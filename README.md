@@ -25,11 +25,12 @@ Your starting data is found within a shared HCGS directory. To start we will mak
 ```bash
 mkdir ~/qiime2_tutorial
 cd ~/qiime2_tutorial/
-ls Project_dir/ 
+ls ~/../shared/Project_092012_PM16sLexy/
+ls ~/../shared/Project_092012_PM16sLexy/Sample_1/
 
 # copy all the fastq files at once into a single directory
 mkdir raw-reads
-cp Project_dir/Sample_*/*.fastq.gz raw-reads/
+cp ~/../shared/Project_092012_PM16sLexy/Sample_*/*.fastq.gz raw-reads/
 ls raw-reads/
 ```
 
