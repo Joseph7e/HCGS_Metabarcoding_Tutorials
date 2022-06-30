@@ -5,17 +5,16 @@ Workflow for qiime2 workshop
 
 ## Useful Links:
 
-[Devins workflow](https://bitbucket.org/dwthomas/workshop-notes/src/master/QIIME%2016S%20walkthrough%20T3%202019.md)
-
-['QIIME2'](https://docs.qiime2.org/2019.7/):https://docs.qiime2.org/2019.7/
+['QIIME2'](https://docs.qiime2.org/2019.7/):https://docs.qiime2.org/2021.11/
 
 ['QIIME2 visuals'](https://view.qiime2.org/):https://view.qiime2.org/
 
-['Moving Pictures Tutorial'](https://docs.qiime2.org/2019.4/tutorials/moving-pictures/): 
+['Moving Pictures Tutorial'](https://docs.qiime2.org/2021.11/tutorials/moving-pictures/): 
 
-['Getting Oriented'](https://docs.qiime2.org/2019.7/tutorials/overview/#let-s-get-oriented-flowcharts):
+['Getting Oriented'](https://docs.qiime2.org/2021.11/tutorials/overview/#let-s-get-oriented-flowcharts):
 
 ['Metadata file'](https://docs.google.com/spreadsheets/d/1ZiRFItD26vgetcQQft41yiZgTJULstbdYrcprlgLws0/edit?usp=sharing)
+
 # 16S Metabarcoding with Qiime 2
 In this example we'll go over how to use QIIME 2 to analyze metabarcoding data.
 These data are from set of mouse fecal samples provided by [Jason Bubier from The Jackson Laboratory](https://www.jax.org/research-and-faculty/faculty/research-scientists/jason-bubier).
