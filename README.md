@@ -78,9 +78,9 @@ Qiime works on two types of files, Qiime Zipped Archives (.qza) and Qiime Zipped
 ~~~bash
 qiime tools import\
    --type 'SampleData[PairedEndSequencesWithQuality]'\
-   --input-path /home/share/examples/Project_062419JAXNX16s/reads/\
-   --input-format CasavaOneEightSingleLanePerSampleDirFmt\
-   --output-path demux.qza
+   --input-path manifest.csv\
+   --output-path demux\
+   --input-format PairedEndFastqManifestPhred33
    ## the correct extension is automatically added for the output by qiime.
 ~~~
 
@@ -105,8 +105,8 @@ DADA2 does this by learning the error rates for each transition between bases at
 ~~~bash
 qiime dada2 denoise-paired\
    --i-demultiplexed-seqs demux.qza\
-   --p-trim-left-f 19 --p-trim-left-r 8\
-   --p-trunc-len-f 245 --p-trunc-len-r 205\
+   --p-trim-left-f 20 --p-trim-left-r 17\
+   --p-trunc-len-f 250 --p-trunc-len-r 250\
    --p-n-threads 18\
    --o-denoising-stats dns\
    --o-table table\
