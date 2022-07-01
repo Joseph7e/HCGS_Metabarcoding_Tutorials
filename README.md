@@ -18,13 +18,13 @@ Workflow for qiime2 workshop
 # 16S Metabarcoding with Qiime 2
 In this example we'll go over how to use QIIME 2 to analyze metabarcoding data.
 These data are from set of mouse fecal samples provided by [Jason Bubier from The Jackson Laboratory](https://www.jax.org/research-and-faculty/faculty/research-scientists/jason-bubier).
-The samples were run targeting the V4-V5 region of the 16S gene using the [EMP 515Fâ€“926R primer pair](http://www.earthmicrobiome.org/protocols-and-standards/16s/) on an Illumnina HiSeq at HCGS on a paired end 250 bp run.
+The samples were run targeting the V1-V3 region of the 16S gene using the 27F - 534R primer pair on an Illumnina MiSeq on a paired end 300 bp run.
 #### Primers
 ~~~
-515F [19 bp]
- 5'GTG YCA GCM GCC GCG GTA A
-926R [20 bp]
- 5'CCG YCA ATT YMT TTR AGT TT
+27F [20 bp]
+ 5'AGM GTT YGA TYM YGG CTC AG
+534R [17 bp]
+ 5'ATT ACC GCG GCT GCT GG
 ~~~
 For Metadata we have the sex, strain, age in days.
 Our goal is to examine the correlation of the fecal microbiome we observe with these metadata.
@@ -35,22 +35,33 @@ We will use the Qiime2 command line interface, there is also the ["Artifact" pyt
 We start by activating the Qiime 2 environment.  The server is a shared resource and we may want to be able to use different version of programs, like blast or R or Python than Qiime 2 requires.  To enable this Qiime 2 is given its own working environment with the exact version of all the programs it requires.  Qiime 2 currently puts out a new version about every 3 months.  You should upgrade varsions as they come available, even if you began with an earlier version.
 ~~~bash
 #      version: qiime2-year.month
-source activate qiime2-2019.4
+conda activate qiime2-2020.2
 ~~~
 Now lets grab a copy of the data!  Notice that the copy command will warn us that it is skipping the reads directory, that is OK!
 ~~~bash
 mkdir T3_Mouse
 cd T3_Mouse/
-cp /home/share/examples/T3_Mouse* .
+cp /home/share/examples/cocaine_mouse/* .
 ls
 # mdat.tsv
 
 less -S mdat.tsv
-# #SampleID       Sex     Strain  HaveBred        DOB     Days    Description
-# 1-BATES F       Strain_1        mating  10/24/18        203     a5218
-# 10-BATES        M       Strain_2        VIRGIN  7/8/18  310     15935
-# 11-BATES        M       Strain_2        VIRGIN  7/8/18  310     15936
-# ...
+#SampleID       Sex     Treatment       Strain  Date    PrePost Dataset HaveBred        PerformedPCR    Description     pptreatment     Testing
+#q2:types       categorical     categorical     categorical     numeric categorical     categorical     categorical     categorical             categorical     categorical
+JBCDJ00OLJ1STT0B00000191821C7M7FGT1904904       F       Sham    CC004   0       Pre     Dataset1                Jax     19182_1 PreSham Train
+JBCDJ00OLK1STT0B00000191671C7M7FGT1904905       F       Coc     CC041   0       Pre     Dataset1                Jax     19167_1 PreCoc  Train
+JBCDJ00OLL1STT0B00000191771C7M7FGT1904906       M       Sham    CC004   0       Pre     Dataset1                Jax     19177_1 PreSham Test
+JBCDJ00OLM1STT0B00000191861C7M7FGT1904907       M       Coc     CC004   0       Pre     Dataset1                Jax     19186_1 PreCoc  Test
+JBCDJ00OLN1STT0B00000191791C7M7FGT1904908       F       Coc     CC004   0       Pre     Dataset1                Jax     19179_1 PreCoc  Train
+JBCDJ00OLO1STT0B00000191691C7M7FGT1904909       F       Sham    CC041   0       Pre     Dataset1                Jax     19169_1 PreSham Test
+JBCDJ00OLP1STT0B00000191731C7M7FGT1904910       M       Coc     CC041   0       Pre     Dataset1                Jax     19173_1 PreCoc  Test
+JBCDJ00OLQ1STT0B00000191641C7M7FGT1904911       M       Coc     CC041   0       Pre     Dataset1                Jax     19164_1 PreCoc  Train
+JBCDJ00OLR1STT0B00000191801C7M7FGT1904912       F       Sham    CC004   0       Pre     Dataset1                Jax     19180_1 PreSham Train
+JBCDJ00OLS1STT0B00000191831C7M7FGT1904913       F       Coc     CC004   0       Pre     Dataset1                Jax     19183_1 PreCoc  Train
+JBCDJ00OLT1STT0B00000191841C7M7FGT1904914       M       Sham    CC004   0       Pre     Dataset1                Jax     19184_1 PreSham Train
+JBCDJ00OLU1STT0B00000191711C7M7FGT1904915       M       Coc     CC041   0       Pre     Dataset1                Jax     19171_1 PreCoc  Train
+JBCDJ00OLV1STT0B00000191681C7M7FGT1904916       F       Sham    CC041   0       Pre     Dataset1                Jax     19168_1 PreSham Train
+
 ~~~
 When we look at the metadata file we see the metadata that we will be able to use during our analysis.
 
