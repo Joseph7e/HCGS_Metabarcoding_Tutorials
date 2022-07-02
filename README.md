@@ -106,7 +106,7 @@ DADA2 does this by learning the error rates for each transition between bases at
 qiime dada2 denoise-paired\
    --i-demultiplexed-seqs demux.qza\
    --p-trim-left-f 20 --p-trim-left-r 17\
-   --p-trunc-len-f 250 --p-trunc-len-r 250\
+   --p-trunc-len-f 295 --p-trunc-len-r 275\
    --p-n-threads 18\
    --o-denoising-stats dns\
    --o-table table\
@@ -141,11 +141,14 @@ To assign taxonomy we will use a naive bayes classifier trained by the qiime2 au
 If we were using a different primer pair we would want to use a different method, like vsearch.
 
 ~~~bash
-qiime feature-classifier classify-sklearn\
-   --i-classifier /home/share/databases/SILVA_databases/silva-132-99-515-806-nb-classifier.qza\
-   --i-reads rep-seqs.qza\
-   --p-n-jobs 18\
-   --o-classification taxonomy.qza
+qiime feature-classifier classify-consensus-vsearch\
+   --i-query rep-seqs.qza\
+   --i-reference-reads /home/share/databases/SILVA_databases/silva-138-99-seqs.qza\
+   --i-reference-taxonomy /home/share/databases/SILVA_databases/silva-138-99-tax.qza\
+   --p-maxaccepts 5 --p-query-cov 0.4\
+   --p-perc-identity 0.7\
+   --o-classification taxonomy\
+   --p-threads 72 &
 ~~~
 
 The classifier uses the kmers of the sequence as it's features.
