@@ -35,7 +35,7 @@ We will use the Qiime2 command line interface, there is also the ["Artifact" pyt
 We start by activating the Qiime 2 environment.  The server is a shared resource and we may want to be able to use different version of programs, like blast or R or Python than Qiime 2 requires.  To enable this Qiime 2 is given its own working environment with the exact version of all the programs it requires.  Qiime 2 currently puts out a new version about every 3 months.  You should upgrade varsions as they come available, even if you began with an earlier version.
 ~~~bash
 #      version: qiime2-year.month
-conda activate qiime2-2020.2
+conda activate qiime2-2022.2
 ~~~
 Now lets grab a copy of the data!  Notice that the copy command will warn us that it is skipping the reads directory, that is OK!
 ~~~bash
