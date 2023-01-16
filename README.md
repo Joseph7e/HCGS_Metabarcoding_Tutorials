@@ -266,7 +266,7 @@ Similar to above, you can run FASTQC again with your new trimmed reads. Comparin
 
 You can also count the number of reads for each of your files like you did for the raw reads. How does this compare to the original count? What percentage of your reads did you lose? How many reads are unpaired?
 
-
+## Import data into Qiime2
 
 ~~~bash
 # Anatomy of a qiime command
@@ -285,25 +285,6 @@ qiime tools import\
    --input-format PairedEndFastqManifestPhred33
    ## the correct extension is automatically added for the output by qiime.
 ~~~
-
- 
-
-* Prepare your working directory
-
-It is a good idea to keep your directories tidy and to name your files something that makes sense. This is just to keep things organized so you know what everything is several months from now. We are going to make a new directory to house all of the analyses for this tutorial.
-
-```bash
-# Make a new directory and add the Sample directory into it
-mkdir powered-wgs-tutorial
-mv Sample* powered-wgs-tutorial/
-cd powered-wgs-tutorial/
-# make the sample directory name more meaningful
-mv Sample_X Sample_X-raw_reads
-```
-
-
-
-
 
 ## Quality Control
 Now we want to look at the quality profile of our reads.  Our goal is to determine how much we should truncate the reads before the paired end reads are joined.  This will depend on the length of our amplicon, and the quality of the reads.
