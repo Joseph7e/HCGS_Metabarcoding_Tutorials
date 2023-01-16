@@ -1,6 +1,25 @@
 # Overview - 16S Metabarcoding with Qiime 2
 In this tutorial we'll go over how to use QIIME 2 to analyze metabarcoding data. We'll start with an introduction to BASH and overview of how amplicon data is produced.
 
+## What is metabarcoding?
+
+## Qiime2 documentation
+![alt text](https://pbs.twimg.com/profile_images/788836988933681153/5x29uqk3_400x400.jpg)
+
+[Qiime2 user documentation](https://docs.qiime2.org/2022.8/)
+
+[Qiime2 visuals](https://view.qiime2.org/)
+
+[Moving Pictures Tutorial](https://docs.qiime2.org/2022.8/tutorials/moving-pictures/)
+
+[Getting Oriented](https://docs.qiime2.org/2022.2/tutorials/overview/#let-s-get-oriented-flowcharts)
+
+[Metadata file](https://docs.google.com/spreadsheets/d/1ZiRFItD26vgetcQQft41yiZgTJULstbdYrcprlgLws0/edit?usp=sharing)
+
+
+
+
+
 # Common primers used at HCGS
 | Target-Organisms      | Gene | Region    | Location/Name | Length (bp)      | Forward-primer         | Reverse-primer              | F_length | R_length | Reference                  |
 | --------------------- | ---- | --------- | ------------- | ---------------- | ---------------------- | --------------------------- | -------- | -------- | -------------------------- |
@@ -74,23 +93,6 @@ When we look at the metadata file we see the metadata that we will be able to us
 
 
 ### Useful Links:
-
-
-
-[Qiime2 user documentation](https://docs.qiime2.org/2022.8/)
-
-[Qiime2 visuals](https://view.qiime2.org/)
-
-[Moving Pictures Tutorial](https://docs.qiime2.org/2022.8/tutorials/moving-pictures/)
-
-[Getting Oriented](https://docs.qiime2.org/2022.2/tutorials/overview/#let-s-get-oriented-flowcharts)
-
-[Metadata file](https://docs.google.com/spreadsheets/d/1ZiRFItD26vgetcQQft41yiZgTJULstbdYrcprlgLws0/edit?usp=sharing)
-# 
-
-Workflow for qiime2 workshop
-
-![alt text](https://pbs.twimg.com/profile_images/788836988933681153/5x29uqk3_400x400.jpg)
 
 
 Now we're ready to import the data into qiime. We will be using the qiime 2 command line interface, there is also a python interface called the Artifact API which can be a powerful tool.
