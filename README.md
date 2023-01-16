@@ -14,7 +14,8 @@ In this tutorial we'll go over how to use QIIME 2 to analyze metabarcoding data.
 
 These data are from set of mouse fecal samples provided by [Jason Bubier from The Jackson Laboratory](https://www.jax.org/research-and-faculty/faculty/research-scientists/jason-bubier).
 The samples were run targeting the V1-V3 region of the 16S gene using the 27F - 534R primer pair on an Illumnina MiSeq on a paired end 300 bp run.
-#### Primers
+
+### Primers
 ~~~
 27F [20 bp]
  5'AGM GTT YGA TYM YGG CTC AG
@@ -36,7 +37,7 @@ We will use the Qiime2 command line interface, there is also the ["Artifact" pyt
 
 
 ### Activate Qiime 2 Enviornment
-Anytime we want to use qiime2 on the server we need to activate the Qiime 2 environmen. The server is a shared resource and we may want to be able to use different version of programs, like blast or R or Python than Qiime 2 requires.  To enable this Qiime 2 is given its own working environment with the exact version of all the programs it requires.  Qiime 2 currently puts out a new version about every 3 months. This tutorial will use qiime2 version 2022.8.
+Anytime we want to use qiime2 on the server we need to activate the Qiime 2 environment. The server is a shared resource and we may want to be able to use different version of programs, like blast or R or Python than Qiime 2 requires.  To enable this Qiime 2 is given its own working environment with the exact version of all the programs it requires.  Qiime 2 currently puts out a new version about every 3 months. This tutorial will use qiime2 version 2022.8.
 
 ~~~bash
 #      version: qiime2-year.month
