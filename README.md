@@ -1,18 +1,14 @@
 # Overview - 16S Metabarcoding with Qiime 2
-In this tutorial we'll go over how to use QIIME 2 to analyze metabarcoding data.
+In this tutorial we'll go over how to use QIIME 2 to analyze metabarcoding data. We'll start with an introduction to BASH and overview of how amplicon data is produced.
 
 # Common primers used at HCGS
-
-| Target-Organisms      | Gene | Region    | Location/Name | Length| Forward-primer         | Reverse-primer              | SeqAdapters | F_length | R_length | Reference                  |
-| --------------------- | ---- | --------- | ------------- | ----------------------------------- | ---------------------- | --------------------------- | ----------- | -------- | -------- | -------------------------- |
-| Prokaryotes           | 16S  | V4        | 515F-806R     | ~390 bp                             | GTGYCAGCMGCCGCGGTAA    | GGACTACNVGGGTWTCTAAT        |             | 19       | 20       | Walters et al. 2016        |
-| Prokaryotes           | 16S  | V4-V5     | 515-926R      | ~510 bp                             | GTGYCAGCMGCCGCGGTAA    | CCGYCAATTYMTTTRAGTTT        |             | 19       | 20       | Stoek et al. 2010          |
-| Microbial Eukaryotes  | 18S  | V9        | 1391F-1510R   | ~210 - 310 bp                       | GTACACACCGCCCGTC       | TGATCCTTCTGCAGGTTCACCTAC    |             | 16       | 24       | Amaral-Zettler et al. 2009 |
-| Fungal and micro euks | ITS  | ITS1-ITS2 | ITS1F-ITS2    | ~250 - 600 bp                       | CTTGGTCATTTAGAGGAAGTAA | GCTGCGTTCTTCATCGATGC        |             | 22       | 20       | White et al., 1990         |
-| Fish                  | 12S  | V5        | MiFish        | ~163 - 185 bp                       | GTCGGTAAAACTCGTGCCAGC  | CATAGTGGGGTATCTAATCCCAGTTTG | Nextera     | 21       | 27       | Miya et al, 2015           |
-
-
-
+| Target-Organisms      | Gene | Region    | Location/Name | Length (bp)      | Forward-primer         | Reverse-primer              | F_length | R_length | Reference                  |
+| --------------------- | ---- | --------- | ------------- | ---------------- | ---------------------- | --------------------------- | -------- | -------- | -------------------------- |
+| Prokaryotes           | 16S  | V4        | 515F-806R     | ~390             | GTGYCAGCMGCCGCGGTAA    | GGACTACNVGGGTWTCTAAT        | 19       | 20       | Walters et al. 2016        |
+| Prokaryotes           | 16S  | V4-V5     | 515-926R      | ~510             | GTGYCAGCMGCCGCGGTAA    | CCGYCAATTYMTTTRAGTTT        | 19       | 20       | Stoek et al. 2010          |
+| Microbial Eukaryotes  | 18S  | V9        | 1391F-1510R   | ~210 - 310       | GTACACACCGCCCGTC       | TGATCCTTCTGCAGGTTCACCTAC    | 16       | 24       | Amaral-Zettler et al. 2009 |
+| Fungal and micro euks | ITS  | ITS1-ITS2 | ITS1F-ITS2    | ~250 - 600       | CTTGGTCATTTAGAGGAAGTAA | GCTGCGTTCTTCATCGATGC        | 22       | 20       | White et al., 1990         |
+| Fish                  | 12S  | V5        | MiFish        | ~163 - 185       | GTCGGTAAAACTCGTGCCAGC  | CATAGTGGGGTATCTAATCCCAGTTTG | 21       | 27       | Miya et al, 2015           |
 
 # Example Data
 
@@ -30,13 +26,23 @@ Our goal is to examine the correlation of the fecal microbiome we observe with t
 We will primarily use the [Qiime 2](https://qiime2.org/) bioinformatics platform.
 Qiime 2 is free and open source and available from Linux and OSX.
 We will use the Qiime2 command line interface, there is also the ["Artifact" python API](https://docs.qiime2.org/2019.4/interfaces/artifact-api/) which can be more powerful.
-## Getting the Data
-We start by activating the Qiime 2 environment.  The server is a shared resource and we may want to be able to use different version of programs, like blast or R or Python than Qiime 2 requires.  To enable this Qiime 2 is given its own working environment with the exact version of all the programs it requires.  Qiime 2 currently puts out a new version about every 3 months.  You should upgrade varsions as they come available, even if you began with an earlier version.
+
+
+
+#### Connect to the server
+[BASH Tutorials](https://github.com/Joseph7e/HCGS-BASH-tutorial)
+
+[INBRE BASH Tutorials](https://geiselmed.dartmouth.edu/nhinbre/bioinformatics-modules/)
+
+
+### Activate Qiime 2 Enviornment
+Anytime we want to use qiime2 on the server we need to activate the Qiime 2 environmen. The server is a shared resource and we may want to be able to use different version of programs, like blast or R or Python than Qiime 2 requires.  To enable this Qiime 2 is given its own working environment with the exact version of all the programs it requires.  Qiime 2 currently puts out a new version about every 3 months. This tutorial will use qiime2 version 2022.8.
+
 ~~~bash
 #      version: qiime2-year.month
-conda activate qiime2-2022.2
-~~~
-Now lets grab a copy of the data!  Notice that the copy command will warn us that it is skipping the reads directory, that is OK!
+conda activate qiime2-2022.8
+
+### Copy starting data
 ~~~bash
 mkdir T3_Mouse
 cd T3_Mouse/
@@ -68,7 +74,7 @@ When we look at the metadata file we see the metadata that we will be able to us
 
 ### Useful Links:
 
-[BASH Tutorials](https://github.com/Joseph7e/HCGS-BASH-tutorial) and [INBRE BASH Tutorials](https://geiselmed.dartmouth.edu/nhinbre/bioinformatics-modules/)
+
 
 [Qiime2 user documentation](https://docs.qiime2.org/2022.8/)
 
