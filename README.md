@@ -3,6 +3,41 @@ In this tutorial we'll go over how to use QIIME 2 to analyze metabarcoding data.
 
 ## What is metabarcoding?
 
+
+Isolate Bacteria            |  Extract DNA
+:-------------------------:|:-------------------------:
+![alt text](https://github.com/Joseph7e/HCGS-Genomics-Tutorial/blob/master/petri.jpg?raw=true)  |  <img src="https://www.cephamls.com/wp-content/uploads/2019/02/DNA-Extraction-Figure-3-22.jpg" width="420">
+<img src="https://github.com/Joseph7e/HCGS-Genomics-Tutorial/blob/master/fragmentation3.png?raw=true" width="800">
+
+Prepare Library           |  Sequence DNA
+:-------------------------:|:-------------------------:
+<img src="https://jef.works//assets/blog/librarystructure.png" width="520">  |  <img src="https://github.com/Joseph7e/HCGS-Genomics-Tutorial/blob/master/hiseq.png?raw=true" width="320">
+
+
+## General Notes:
+**For each program that we run in this tutorial I have provided a link to the manual**. These manuals provide a thorough explanation of what exactly we are doing. Before running the workflow on your own data you should read the manual/publication for these programs
+
+Throughout this tutorial the commands you will type are formatted into the gray text boxes (don't do it when learning but they can be faithfully copied and pasted). The '#' symbol indicates a comment, BASH knows to ignore these lines. 
+
+
+This tutorial assumes a general understanding of the BASH environment. **You should be familiar with moving around the directories and understand how to manipulate files**.
+
+See the BASH tutorial and primers to get started. https://github.com/Joseph7e/HCGS-BASH-tutorial
+
+**Remember to tab complete!** There is a reason the tab is my favorite key. It prevents spelling errors and allows you to work much faster. Remember if a filename isn't auto-completing you can hit tab twice to see your files while you continue typing your command. If a file doesn't auto-complete it means you either have a spelling mistake, are in a different directory than you originally thought, or that it doesn't exist.
+
+## How NGS sequencing works
+[![sequencing by synthesis](img/youtube-video-sequencing.PNG)](https://www.youtube.com/watch?v=p4vKJJlNTKA&t=9s "Sequencing")
+
+Your starting data is found within a shared directory within your group folder (one directory level up). To start we will move a set of Sample data into your home directories. Each of these samples represent the genome of a unique and novel microbe that has not been seen before (except by me). Inside this directory are Illumina HiSeq 2500, paired-end, 250 bp sequencing reads. Looking in this directory you should see two files per sample, the forward and reverse reads. These files are in **FASTQ** format (see below).
+
+[Link explaining the 'Read Name Format'](http://support.illumina.com/content/dam/illumina-support/help/BaseSpaceHelp_v2/Content/Vault/Informatics/Sequencing_Analysis/BS/swSEQ_mBS_FASTQFiles.htm): SampleName_Barcode_LaneNumber_001.fastq.gz
+
+
+Important note: In the above command I use the "\*" character to view the Sample directory, I would normally just type out the entire path using tab complete (which is what you should do). This wildcard will match any string of characters. I use this because everyone will have a different Sample name. To make this tutorial as general as possible I need to use these wildcards throughout the tutorial. In addition I may use Sample_X instead of Sample_\*. In these cases be sure to type out your complete sample name!, the wildcards probably won't work 
+
+
+
 ## Qiime2 documentation
 ![alt text](https://pbs.twimg.com/profile_images/788836988933681153/5x29uqk3_400x400.jpg)
 
@@ -48,24 +83,16 @@ Qiime 2 is free and open source and available from Linux and OSX.
 We will use the Qiime2 command line interface, there is also the ["Artifact" python API](https://docs.qiime2.org/2019.4/interfaces/artifact-api/) which can be more powerful.
 
 
-
 #### Connect to the server
 [BASH Tutorials](https://github.com/Joseph7e/HCGS-BASH-tutorial)
 
 [INBRE BASH Tutorials](https://geiselmed.dartmouth.edu/nhinbre/bioinformatics-modules/)
 
 
-### Activate Qiime 2 Enviornment
-Anytime we want to use qiime2 on the server we need to activate the Qiime 2 environment. The server is a shared resource and we may want to be able to use different version of programs, like blast or R or Python than Qiime 2 requires.  To enable this Qiime 2 is given its own working environment with the exact version of all the programs it requires.  Qiime 2 currently puts out a new version about every 3 months. This tutorial will use qiime2 version 2022.8.
-
-~~~bash
-#      version: qiime2-year.month
-conda activate qiime2-2022.8
-
 ### Copy starting data
 ~~~bash
-mkdir T3_Mouse
-cd T3_Mouse/
+mkdir mkdir hcgs-qiime2-workshop
+cd mkdir hcgs-qiime2-workshop
 cp /home/share/examples/cocaine_mouse/* .
 ls
 # mdat.tsv
@@ -88,114 +115,10 @@ JBCDJ00OLU1STT0B00000191711C7M7FGT1904915       M       Coc     CC041   0       
 JBCDJ00OLV1STT0B00000191681C7M7FGT1904916       F       Sham    CC041   0       Pre     Dataset1                Jax     19168_1 PreSham Train
 
 ~~~
-When we look at the metadata file we see the metadata that we will be able to use during our analysis.
-
-
-
-### Useful Links:
+When we look at the metadata file we see the metadata that we will be able to use during our analysis
 
 
 Now we're ready to import the data into qiime. We will be using the qiime 2 command line interface, there is also a python interface called the Artifact API which can be a powerful tool.
-~~~bash
-# Anatomy of a qiime command
-qiime plugin action\
-   --i-inputs  foo\       ## input arguments start with --i
-   --p-parameters bar\    ## paramaters start with --p
-   --m-metadata mdat\     ## metadata options start with --m
-   --o-outputs out        ## and output starts with --o
-~~~
-Qiime works on two types of files, Qiime Zipped Archives (.qza) and Qiime Zipped Visualizations (.qzv).  Both are simply renamed .zip archives that hold the appropriate qiime data in a structured format.  This includes a "provenance" for that object which tracks the history of commands that led to it.  The qza files contain data, while the qzv files contain visualizations displaying some data.  We'll look at a quality summary of our reads to help decide how to trim and truncate them.
-~~~bash
-qiime tools import\
-   --type 'SampleData[PairedEndSequencesWithQuality]'\
-   --input-path manifest.csv\
-   --output-path demux\
-   --input-format PairedEndFastqManifestPhred33
-   ## the correct extension is automatically added for the output by qiime.
-~~~
-
- 
-
-google sheet
-https://docs.google.com/spreadsheets/d/1auOfzSoYiHQIOrlcN3kZyKBPTjy1fbPiSClNuAKzdJ8/edit?usp=sharing
-
-shared presentation
-https://docs.google.com/presentation/d/1OBzO8tTlOovftlic2hYZ7EWInaVoaPCbp_dOabNGVWY/edit?usp=sharing
-
-## General Notes:
-**For each program that we run in this tutorial I have provided a link to the manual**. These manuals provide a thorough explanation of what exactly we are doing. Before running the program it is a good idea to skim through these, examine the options, and see what it does. It is also a good idea to check out the publication associated with the program. Please note that the commands we run are general and usually executed with default settings. This works great for most genomes but the options may need to be tweaked depending on your genome. Before you run any command it is also a great idea to look at the programs help menu. This can usually be done with the name of the program followed by '-h' or '-help' or '--help'. i.e. 'spades -h'. Also ... never forget about google for quick answers to any confusion.
-
-
-Throughout this tutorial the commands you will type are formatted into the gray text boxes (don't do it when learning but they can be faithfully copied and pasted). The '#' symbol indicates a comment, BASH knows to ignore these lines. 
-
-
-This tutorial assumes a general understanding of the BASH environment. **You should be familiar with moving around the directories and understand how to manipulate files**.
-
-See the BASH tutorial and primers to get started. https://github.com/Joseph7e/HCGS-BASH-tutorial
-
-**Remember to tab complete!** There is a reason the tab is my favorite key. It prevents spelling errors and allows you to work much faster. Remember if a filename isn't auto-completing you can hit tab twice to see your files while you continue typing your command. If a file doesn't auto-complete it means you either have a spelling mistake, are in a different directory than you originally thought, or that it doesn't exist.
-
-
-## Starting Data:
-
-Isolate Bacteria            |  Extract DNA
-:-------------------------:|:-------------------------:
-![alt text](https://github.com/Joseph7e/HCGS-Genomics-Tutorial/blob/master/petri.jpg?raw=true)  |  <img src="https://www.cephamls.com/wp-content/uploads/2019/02/DNA-Extraction-Figure-3-22.jpg" width="420">
-<img src="https://github.com/Joseph7e/HCGS-Genomics-Tutorial/blob/master/fragmentation3.png?raw=true" width="800">
-
-Prepare Library           |  Sequence DNA
-:-------------------------:|:-------------------------:
-<img src="https://jef.works//assets/blog/librarystructure.png" width="520">  |  <img src="https://github.com/Joseph7e/HCGS-Genomics-Tutorial/blob/master/hiseq.png?raw=true" width="320">
-
-## How NGS sequencing works
-[![sequencing by synthesis](img/youtube-video-sequencing.PNG)](https://www.youtube.com/watch?v=p4vKJJlNTKA&t=9s "Sequencing")
-
-Your starting data is found within a shared directory within your group folder (one directory level up). To start we will move a set of Sample data into your home directories. Each of these samples represent the genome of a unique and novel microbe that has not been seen before (except by me). Inside this directory are Illumina HiSeq 2500, paired-end, 250 bp sequencing reads. Looking in this directory you should see two files per sample, the forward and reverse reads. These files are in **FASTQ** format (see below).
-
-
-## Get your bearing on the server.
-
-It's hard to know where your going if you don't know where you are. When I am working on the server I constantly type 'ls' and 'pwd' to make sure I am where I think I am. You should too!
-
-```bash
-# print your current working directory. If you just logged in you should be in your home directory (/home/group/username/)
-pwd
-# change to your home directory in case you weren't already there. Remember ~/ is an absolute path to your home directory.
-cd ~/
-# ls to view your home dir
-ls
-# ls to view the group directory (I type ‘ls’ a lot!)
-ls ../
-# view the shared directory of starting data
-ls ../shared
-# View the shared project with the ‘tree’ command
-tree ../shared
-# Copy a sample from the shared directory to your home dir, 
-#“Project_X”, where X denotes the Project name and "Sample_X" (where X denotes your sample name).
-# USE AUTOCOMPLETE
-cp -r ../shared/Project_X/ Sample_X/ ./
-# confirm the copy arrived (remember ‘*’ will match any character/string)
-ls Sample_*/
-```
-
-[Link explaining the 'Read Name Format'](http://support.illumina.com/content/dam/illumina-support/help/BaseSpaceHelp_v2/Content/Vault/Informatics/Sequencing_Analysis/BS/swSEQ_mBS_FASTQFiles.htm): SampleName_Barcode_LaneNumber_001.fastq.gz
-
-
-Important note: In the above command I use the "\*" character to view the Sample directory, I would normally just type out the entire path using tab complete (which is what you should do). This wildcard will match any string of characters. I use this because everyone will have a different Sample name. To make this tutorial as general as possible I need to use these wildcards throughout the tutorial. In addition I may use Sample_X instead of Sample_\*. In these cases be sure to type out your complete sample name!, the wildcards probably won't work 
-
-
-* Prepare your working directory
-
-It is a good idea to keep your directories tidy and to name your files something that makes sense. This is just to keep things organized so you know what everything is several months from now. We are going to make a new directory to house all of the analyses for this tutorial.
-
-```bash
-# Make a new directory and add the Sample directory into it
-mkdir powered-wgs-tutorial
-mv Sample* powered-wgs-tutorial/
-cd powered-wgs-tutorial/
-# make the sample directory name more meaningful
-mv Sample_X Sample_X-raw_reads
-```
 
 ## Activate the genomics environment
 This is important and ensures that all the programs we use are updates and in working order. You'll need to do this everytime you login to the server.
@@ -344,6 +267,39 @@ Similar to above, you can run FASTQC again with your new trimmed reads. Comparin
 You can also count the number of reads for each of your files like you did for the raw reads. How does this compare to the original count? What percentage of your reads did you lose? How many reads are unpaired?
 
 
+
+~~~bash
+# Anatomy of a qiime command
+qiime plugin action\
+   --i-inputs  foo\       ## input arguments start with --i
+   --p-parameters bar\    ## paramaters start with --p
+   --m-metadata mdat\     ## metadata options start with --m
+   --o-outputs out        ## and output starts with --o
+~~~
+Qiime works on two types of files, Qiime Zipped Archives (.qza) and Qiime Zipped Visualizations (.qzv).  Both are simply renamed .zip archives that hold the appropriate qiime data in a structured format.  This includes a "provenance" for that object which tracks the history of commands that led to it.  The qza files contain data, while the qzv files contain visualizations displaying some data.  We'll look at a quality summary of our reads to help decide how to trim and truncate them.
+~~~bash
+qiime tools import\
+   --type 'SampleData[PairedEndSequencesWithQuality]'\
+   --input-path manifest.csv\
+   --output-path demux\
+   --input-format PairedEndFastqManifestPhred33
+   ## the correct extension is automatically added for the output by qiime.
+~~~
+
+ 
+
+* Prepare your working directory
+
+It is a good idea to keep your directories tidy and to name your files something that makes sense. This is just to keep things organized so you know what everything is several months from now. We are going to make a new directory to house all of the analyses for this tutorial.
+
+```bash
+# Make a new directory and add the Sample directory into it
+mkdir powered-wgs-tutorial
+mv Sample* powered-wgs-tutorial/
+cd powered-wgs-tutorial/
+# make the sample directory name more meaningful
+mv Sample_X Sample_X-raw_reads
+```
 
 
 
