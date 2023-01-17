@@ -11,7 +11,7 @@ In this tutorial we'll go over how to use QIIME 2 to analyze metabarcoding data.
 
 <ins>Metabarcoding</ins> - barcoding of DNA/RNA or eDNA/eRNA in a manner that allows for identification of many taxa within the same sample.  Also known as "amplicon" sequencing, or "marker gene sequencing".
 
-eDNA - 
+<ins>eDNA</ins> - environmental DNA.  
 
 <ins>Metagenomics</ins> -  *en mass* sequencing of a community of organisms using whole-genome shotgun sequencing   
 
@@ -32,6 +32,7 @@ Prepare Library           |  Sequence DNA
 <img src="https://jef.works//assets/blog/librarystructure.png" width="520">  |  <img src="https://github.com/Joseph7e/HCGS-Genomics-Tutorial/blob/master/hiseq.png?raw=true" width="320">
 
 <br />
+image references: 
 <br />
 
   ## How NGS sequencing works
@@ -49,7 +50,7 @@ Prepare Library           |  Sequence DNA
 
 4. For studies utilizing HTS the target region must be small enough to be recovered on one or two sequencing reads when using paired-end information (<600 bps). Shorter sequences are also preferred for recovering barcoding sequences from preserved or degraded samples.  
 
-5. Reference sequence databases with taxonomic information exist for the region in question.
+5. Reference sequence databases with taxonomic information exists for the region in question.
 
 
 
@@ -199,8 +200,6 @@ scp USERNAME@ron.sr.unh.edu:/home/GROUP/USERNAME/bash-practice/fastqc_raw-reads/
 ![fastqc](https://user-images.githubusercontent.com/18738632/42241259-ef2d5f0c-7ed7-11e8-8a7f-f7407979202f.png)
 
 
-
-
 ## Qiime2 documentation
 
 ![alt text](https://pbs.twimg.com/profile_images/788836988933681153/5x29uqk3_400x400.jpg)
@@ -229,12 +228,20 @@ The samples were run targeting the V1-V3 region of the 16S gene using the 27F - 
 534R [17 bp]
  5'ATT ACC GCG GCT GCT GG
 ~~~
-For Metadata we have the sex, strain, age in days.
+
+
+
+
+
+image source - https://help.ezbiocloud.net/16s-rrna-and-16s-rrna-gene/
+
+
+
+For Metadata we have the sex, strain, and age (# days).
 Our goal is to examine the correlation of the fecal microbiome we observe with these metadata.
 We will primarily use the [Qiime 2](https://qiime2.org/) bioinformatics platform.
 Qiime 2 is free and open source and available from Linux and OSX.
 We will use the Qiime2 command line interface, there is also the ["Artifact" python API](https://docs.qiime2.org/2019.4/interfaces/artifact-api/) which can be more powerful.
-
 
 ### Copy starting data
 ~~~bash
