@@ -1,5 +1,5 @@
 # Overview - 16S Metabarcoding with Qiime 2
-In this tutorial we'll go over how to use QIIME 2 to analyze metabarcoding data. We'll start with an introduction to how metabarcoding (aka amplicon) data is produced and a refresher for working in the BASH command-line enviornment. 
+In this tutorial we'll go over how to use QIIME 2 to analyze metabarcoding data. We'll start with an introduction to how metabarcoding (aka amplicon) data is produced and a refresher for working in the BASH command-line environment. 
 
 ## What is metabarcoding?
 
@@ -52,19 +52,18 @@ This tutorial assumes a general understanding of the BASH environment. **You sho
 **Remember to tab complete!** There is a reason the tab is my favorite key. It prevents spelling errors and allows you to work much faster. Remember if a filename isn't auto-completing you can hit tab twice to see your files while you continue typing your command. If a file doesn't auto-complete it means you either have a spelling mistake, are in a different directory than you originally thought, or that it doesn't exist.
 
 <br />
-<br />
+
+# Let's Begin!
 
 ## Connect to the server
 See the BASH tutorials to get started.
 
 [BASH Tutorials](https://github.com/Joseph7e/HCGS-BASH-tutorial)
 
-[INBRE BASH Tutorials](https://geiselmed.dartmouth.edu/nhinbre/bioinformatics-modules/)
-
-# Start!
+[INBRE BASH Tutorials](https://geiselmed.dartmouth.edu/nhinbre/bioinformatics-modules/)  
 
 ## Activate the genomics environment
-This is important and ensures that all the programs we use are updates and in working order. You'll need to do this everytime you login to the server and you need general bioinformatic tools.
+This is important and ensures that all the programs we use are updates and in working order. You'll need to do this every time you login to the server and you need general bioinformatic tools.
 
 ```
 conda activate genomics
@@ -175,14 +174,10 @@ scp USERNAME@ron.sr.unh.edu:/home/GROUP/USERNAME/bash-practice/fastqc_raw-reads/
 
 ![fastqc](https://user-images.githubusercontent.com/18738632/42241259-ef2d5f0c-7ed7-11e8-8a7f-f7407979202f.png)
 
-Similar to above, you can run FASTQC again with your new trimmed reads. Comparing the original html and the new one you should note the differences (see above).
 
-You can also count the number of reads for each of your files like you did for the raw reads. How does this compare to the original count? What percentage of your reads did you lose? How many reads are unpaired?
-
-
+![alt text](https://pbs.twimg.com/profile_images/788836988933681153/5x29uqk3_400x400.jpg)
 
 ## Qiime2 documentation
-![alt text](https://pbs.twimg.com/profile_images/788836988933681153/5x29uqk3_400x400.jpg)
 
 [Qiime2 user documentation](https://docs.qiime2.org/2022.2/)
 
