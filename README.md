@@ -7,8 +7,9 @@ In this tutorial we'll go over how to use QIIME 2 to analyze metabarcoding data.
 
 <ins>Barcoding</ins> - identification (taxonomically/phylogenetically) of an organism by a short section of DNA/RNA, usually through PCR amplification with conserved DNA/RNA primers.
 
-<ins>Metabarcoding</ins> - barcoding of DNA/RNA or eDNA/eRNA in a manner that allows for identification of many taxa within the same sample.
+<ins>Metabarcoding</ins> - barcoding of DNA/RNA or eDNA/eRNA in a manner that allows for identification of many taxa within the same sample.  
 
+<ins>Metagenomics</ins> -  en mass sequencing of a community of organisms using whole-genome shotgun sequencing   
 
 <br />
 
