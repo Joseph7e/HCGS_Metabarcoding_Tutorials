@@ -3,19 +3,38 @@ In this tutorial we'll go over how to use QIIME 2 to analyze metabarcoding data.
 
 ## What is metabarcoding?
 
-Barcoding - identification (taxonomically/phylogenetically) of an organism by a short section of DNA/RNA.
+DNA Barcoding - identification (taxonomically/phylogenetically) of an organism by a short section of DNA/RNA.
 
 Metabarcoding - barcoding of DNA/RNA or eDNA/eRNA in a manner that allows for identification of many taxa within the same sample.
 
 
+
+
 Collect Sample            |  Extract DNA
 :-------------------------:|:-------------------------:
-![alt text](https://github.com/Joseph7e/HCGS-Genomics-Tutorial/blob/master/petri.jpg?raw=true)  |  <img src="https://www.cephamls.com/wp-content/uploads/2019/02/DNA-Extraction-Figure-3-22.jpg" width="420">
-<img src="https://github.com/Joseph7e/HCGS-Genomics-Tutorial/blob/master/fragmentation3.png?raw=true" width="800">
+<img src="https://www.sandberg.co.uk/wp-content/uploads/water-testing-1020x510.jpg" width="420">|  <img src="https://www.cephamls.com/wp-content/uploads/2019/02/DNA-Extraction-Figure-3-22.jpg" width="420">
+
+
+<img src="https://cdn.kastatic.org/ka-perseus-images/6d0650905be0b38de294f614a5449d9559d3387a.png" width="800">
+
 
 Prepare Library           |  Sequence DNA
 :-------------------------:|:-------------------------:
 <img src="https://jef.works//assets/blog/librarystructure.png" width="520">  |  <img src="https://github.com/Joseph7e/HCGS-Genomics-Tutorial/blob/master/hiseq.png?raw=true" width="320">
+
+
+
+
+# Common primers used at HCGS
+| Target-Organisms      | Gene | Region    | Location/Name | Length (bp)      | Forward-primer         | Reverse-primer              | F_length | R_length | Reference                  |
+| --------------------- | ---- | --------- | ------------- | ---------------- | ---------------------- | --------------------------- | -------- | -------- | -------------------------- |
+| Prokaryotes           | 16S  | V4        | 515F-806R     | ~390             | GTGYCAGCMGCCGCGGTAA    | GGACTACNVGGGTWTCTAAT        | 19       | 20       | Walters et al. 2016        |
+| Prokaryotes           | 16S  | V4-V5     | 515-926R      | ~510             | GTGYCAGCMGCCGCGGTAA    | CCGYCAATTYMTTTRAGTTT        | 19       | 20       | Stoek et al. 2010          |
+| Microbial Eukaryotes  | 18S  | V9        | 1391F-1510R   | ~210 - 310       | GTACACACCGCCCGTC       | TGATCCTTCTGCAGGTTCACCTAC    | 16       | 24       | Amaral-Zettler et al. 2009 |
+| Fungal and micro euks | ITS  | ITS1-ITS2 | ITS1F-ITS2    | ~250 - 600       | CTTGGTCATTTAGAGGAAGTAA | GCTGCGTTCTTCATCGATGC        | 22       | 20       | White et al., 1990         |
+| Fish                  | 12S  | V5        | MiFish        | ~163 - 185       | GTCGGTAAAACTCGTGCCAGC  | CATAGTGGGGTATCTAATCCCAGTTTG | 21       | 27       | Miya et al, 2015           |
+
+
 
 
 ## General Notes:
@@ -55,17 +74,6 @@ Important note: In the above command I use the "\*" character to view the Sample
 [Metadata file](https://docs.google.com/spreadsheets/d/1ZiRFItD26vgetcQQft41yiZgTJULstbdYrcprlgLws0/edit?usp=sharing)
 
 
-
-
-
-# Common primers used at HCGS
-| Target-Organisms      | Gene | Region    | Location/Name | Length (bp)      | Forward-primer         | Reverse-primer              | F_length | R_length | Reference                  |
-| --------------------- | ---- | --------- | ------------- | ---------------- | ---------------------- | --------------------------- | -------- | -------- | -------------------------- |
-| Prokaryotes           | 16S  | V4        | 515F-806R     | ~390             | GTGYCAGCMGCCGCGGTAA    | GGACTACNVGGGTWTCTAAT        | 19       | 20       | Walters et al. 2016        |
-| Prokaryotes           | 16S  | V4-V5     | 515-926R      | ~510             | GTGYCAGCMGCCGCGGTAA    | CCGYCAATTYMTTTRAGTTT        | 19       | 20       | Stoek et al. 2010          |
-| Microbial Eukaryotes  | 18S  | V9        | 1391F-1510R   | ~210 - 310       | GTACACACCGCCCGTC       | TGATCCTTCTGCAGGTTCACCTAC    | 16       | 24       | Amaral-Zettler et al. 2009 |
-| Fungal and micro euks | ITS  | ITS1-ITS2 | ITS1F-ITS2    | ~250 - 600       | CTTGGTCATTTAGAGGAAGTAA | GCTGCGTTCTTCATCGATGC        | 22       | 20       | White et al., 1990         |
-| Fish                  | 12S  | V5        | MiFish        | ~163 - 185       | GTCGGTAAAACTCGTGCCAGC  | CATAGTGGGGTATCTAATCCCAGTTTG | 21       | 27       | Miya et al, 2015           |
 
 # Example Data
 
