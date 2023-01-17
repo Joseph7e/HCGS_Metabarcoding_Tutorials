@@ -3,11 +3,11 @@ In this tutorial we'll go over how to use QIIME 2 to analyze metabarcoding data.
 
 ## What is metabarcoding?
 
-DNA taxonomy in a broad sense, means any form of analysis that uses variation in DNA sequence data to inform species delimitation. 
+<ins>DNA taxonomy</ins> in a broad sense, means any form of analysis that uses variation in DNA sequence data to inform species delimitation. 
 
-<ins>DNA Barcoding</ins> - identification (taxonomically/phylogenetically) of an organism by a short section of DNA/RNA.
+<ins>Barcoding</ins> - identification (taxonomically/phylogenetically) of an organism by a short section of DNA/RNA, usually through PCR amplification with conserved DNA/RNA primers.
 
-<ins>Metabarcoding</ins> - barcoding of DNA/RNA or eDNA/eRNA in a manner that allows for identification of many taxa within the same sample.  This is usually done with PCR and DNA/RNA primers.
+<ins>Metabarcoding</ins> - barcoding of DNA/RNA or eDNA/eRNA in a manner that allows for identification of many taxa within the same sample.
 
 
 <br />
