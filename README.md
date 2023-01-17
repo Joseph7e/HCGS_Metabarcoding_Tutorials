@@ -47,6 +47,7 @@ Prepare Library           |  Sequence DNA
 5. Reference sequence databases with taxonomic information exist for the region in question.
 
 
+
 ## Common primers used at HCGS
 | Target-Organisms      | Gene | Region    | Location/Name | Length (bp)      | Forward-primer         | Reverse-primer              | F_length | R_length | Reference                  |
 | --------------------- | ---- | --------- | ------------- | ---------------- | ---------------------- | --------------------------- | -------- | -------- | -------------------------- |
