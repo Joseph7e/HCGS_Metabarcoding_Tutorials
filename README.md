@@ -80,7 +80,7 @@ See the BASH tutorials to get started.
 [INBRE BASH Tutorials](https://geiselmed.dartmouth.edu/nhinbre/bioinformatics-modules/)  
 
 ## Activate the genomics environment
-This is important and ensures that all the programs we use are updates and in working order. You'll need to do this every time you login to the server and you need general bioinformatic tools.
+This is important and ensures that all the programs we use are updated and in working order. You'll need to do this every time you login to the server and need general bioinformatic tools.
 
 ```
 conda activate genomics
