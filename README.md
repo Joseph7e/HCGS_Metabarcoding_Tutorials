@@ -230,10 +230,9 @@ The samples were run targeting the V1-V3 region of the 16S gene using the 27F - 
 ~~~
 
 
+<img src="https://help.ezbiocloud.net/wp-content/uploads/2017/05/16s_var_pcr.png" width="777">
 
-
-
-image source - https://help.ezbiocloud.net/16s-rrna-and-16s-rrna-gene/
+**image source - https://help.ezbiocloud.net/16s-rrna-and-16s-rrna-gene/**
 
 
 
