@@ -1,10 +1,14 @@
 # Overview - 16S Metabarcoding with Qiime 2
-In this tutorial we'll go over how to use QIIME 2 to analyze metabarcoding data. We'll start with an introduction to BASH and overview of how amplicon data is produced.
+In this tutorial we'll go over how to use QIIME 2 to analyze metabarcoding data. We'll start with an introduction to how metabarcoding (aka amplicon) data is produced and an introduction to working in the BASH command-line enviornment. 
 
 ## What is metabarcoding?
 
+Barcoding - identification (taxonomically/phylogenetically) of an organism by a short section of DNA/RNA.
 
-Isolate Bacteria            |  Extract DNA
+Metabarcoding - barcoding of DNA/RNA or eDNA/eRNA in a manner that allows for identification of many taxa within the same sample.
+
+
+Collect Sample            |  Extract DNA
 :-------------------------:|:-------------------------:
 ![alt text](https://github.com/Joseph7e/HCGS-Genomics-Tutorial/blob/master/petri.jpg?raw=true)  |  <img src="https://www.cephamls.com/wp-content/uploads/2019/02/DNA-Extraction-Figure-3-22.jpg" width="420">
 <img src="https://github.com/Joseph7e/HCGS-Genomics-Tutorial/blob/master/fragmentation3.png?raw=true" width="800">
@@ -15,10 +19,9 @@ Prepare Library           |  Sequence DNA
 
 
 ## General Notes:
-**For each program that we run in this tutorial I have provided a link to the manual**. These manuals provide a thorough explanation of what exactly we are doing. Before running the workflow on your own data you should read the manual/publication for these programs
+**For each program that we run in this tutorial I have provided a link to the manual**. These manuals provide a thorough explanation of what exactly we are doing. Before running the workflow on your own data you should read the manual/publication for the program.
 
 Throughout this tutorial the commands you will type are formatted into the gray text boxes (don't do it when learning but they can be faithfully copied and pasted). The '#' symbol indicates a comment, BASH knows to ignore these lines. 
-
 
 This tutorial assumes a general understanding of the BASH environment. **You should be familiar with moving around the directories and understand how to manipulate files**.
 
