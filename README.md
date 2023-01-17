@@ -199,6 +199,10 @@ scp USERNAME@ron.sr.unh.edu:/home/GROUP/USERNAME/bash-practice/fastqc_raw-reads/
 
 [Qiime2 user documentation](https://docs.qiime2.org/2022.2/)
 
+
+QIIME 2™ is a next-generation microbiome bioinformatics platform that is extensible, free, open source, and community developed.
+
+
 [Qiime2 visuals](https://view.qiime2.org/)
 
 [Moving Pictures Tutorial](https://docs.qiime2.org/2022.2/tutorials/moving-pictures/)
