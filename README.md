@@ -7,6 +7,7 @@ In this tutorial we'll go over how to use QIIME 2 to analyze metabarcoding data.
 
 <ins>Metabarcoding</ins> - barcoding of DNA/RNA or eDNA/eRNA in a manner that allows for identification of many taxa within the same sample.  
 
+
 <br />
 
 Collect Sample            |  Extract DNA
@@ -29,6 +30,20 @@ Prepare Library           |  Sequence DNA
 [![sequencing by synthesis](img/youtube-video-sequencing.png)](https://www.youtube.com/watch?v=p4vKJJlNTKA&t=9s "Sequencing")  
 <br />
 <br />
+
+<ins>Selecing a locus for barcoding</ins>
+
+1. The targeted region should have little intraspecific variation (< 2% sequence identity) and enough interspecific variation (>2% sequence identity) to distinguish different species (Carugati et al 2015). 
+
+2. It should be standardized so that the same DNA region is used across the range of taxa.
+
+3. It should be phylogenetically informative to allow the placement of newly barcoded organisms to accurate lineages. 
+
+4. The primer binding sites should be highly conserved and specific, so DNA amplification is reliable across all taxa in question. This is especially important for en mass community analyses (metabarcoding) and will make the development of universal primers more efficient and help alleviate potential PCR bias. 
+
+5. For studies utilizing HTS the target region must be small enough to be recovered on one or two sequencing reads when using paired-end information (<600 bps). Shorter sequences are also preferred for recovering barcoding sequences from preserved or degraded samples (source). 
+
+
 ## Common primers used at HCGS
 | Target-Organisms      | Gene | Region    | Location/Name | Length (bp)      | Forward-primer         | Reverse-primer              | F_length | R_length | Reference                  |
 | --------------------- | ---- | --------- | ------------- | ---------------- | ---------------------- | --------------------------- | -------- | -------- | -------------------------- |
