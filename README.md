@@ -12,7 +12,7 @@ Collect Sample            |  Extract DNA
 :-------------------------:|:-------------------------:
 <img src="https://www.sandberg.co.uk/wp-content/uploads/water-testing-1020x510.jpg" width="420">|  <img src="https://www.cephamls.com/wp-content/uploads/2019/02/DNA-Extraction-Figure-3-22.jpg" width="420">
 
-PCR Amplification          |  Repeat
+PCR Amplification          |  Repeat for x Cycles
 :-------------------------:|:-------------------------:
 <img src="https://cdn.kastatic.org/ka-perseus-images/6d0650905be0b38de294f614a5449d9559d3387a.png" width="420"> | <img src="https://cdn.kastatic.org/ka-perseus-images/41f0e0fd8b49ba824db0eb707015557bb72ae72b.png" width="420">
 
