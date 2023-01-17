@@ -3,7 +3,9 @@ In this tutorial we'll go over how to use QIIME 2 to analyze metabarcoding data.
 
 ## What is metabarcoding?
 
-<ins>DNA Barcoding</ins> - identification (taxonomically/phylogenetically) of an organism by a short section of DNA/RNA.
+DNA taxonomy in a broad sense, means any form of analysis that uses variation in DNA sequence data to inform species delimitation. 
+
+<ins>DNA Barcoding</ins> - identification (taxonomically/phylogenetically) of an organism by a short section of DNA/RNA that is amplified by PCR with primers.
 
 <ins>Metabarcoding</ins> - barcoding of DNA/RNA or eDNA/eRNA in a manner that allows for identification of many taxa within the same sample.  
 
@@ -39,7 +41,9 @@ Prepare Library           |  Sequence DNA
 
 3. The primer binding sites should be highly conserved and specific, so DNA amplification is reliable across all taxa in question. This is especially important for en mass community analyses (metabarcoding) and will make the development of universal primers more efficient and help alleviate potential PCR bias. 
 
-4. For studies utilizing HTS the target region must be small enough to be recovered on one or two sequencing reads when using paired-end information (<600 bps). Shorter sequences are also preferred for recovering barcoding sequences from preserved or degraded samples. 
+4. For studies utilizing HTS the target region must be small enough to be recovered on one or two sequencing reads when using paired-end information (<600 bps). Shorter sequences are also preferred for recovering barcoding sequences from preserved or degraded samples.  
+
+5. Reference sequence databases with taxonomic information exist for the region in question.
 
 
 ## Common primers used at HCGS
