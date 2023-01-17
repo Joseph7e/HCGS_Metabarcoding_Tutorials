@@ -1,13 +1,11 @@
 # Overview - 16S Metabarcoding with Qiime 2
-In this tutorial we'll go over how to use QIIME 2 to analyze metabarcoding data. We'll start with an introduction to how metabarcoding (aka amplicon) data is produced and an introduction to working in the BASH command-line enviornment. 
+In this tutorial we'll go over how to use QIIME 2 to analyze metabarcoding data. We'll start with an introduction to how metabarcoding (aka amplicon) data is produced and a refresher for working in the BASH command-line enviornment. 
 
 ## What is metabarcoding?
 
-DNA Barcoding - identification (taxonomically/phylogenetically) of an organism by a short section of DNA/RNA.
+<ins>DNA Barcoding</ins> - identification (taxonomically/phylogenetically) of an organism by a short section of DNA/RNA.
 
-Metabarcoding - barcoding of DNA/RNA or eDNA/eRNA in a manner that allows for identification of many taxa within the same sample.
-
-
+<ins>Metabarcoding</ins> - barcoding of DNA/RNA or eDNA/eRNA in a manner that allows for identification of many taxa within the same sample.  
 
 
 Collect Sample            |  Extract DNA
