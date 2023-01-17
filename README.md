@@ -23,7 +23,7 @@ Prepare Library           |  Sequence DNA
 
   
   ## How NGS sequencing works
-[![sequencing by synthesis](img/youtube-video-sequencing.PNG)](https://www.youtube.com/watch?v=p4vKJJlNTKA&t=9s "Sequencing")  
+[![sequencing by synthesis](img/youtube-video-sequencing.png)](https://www.youtube.com/watch?v=p4vKJJlNTKA&t=9s "Sequencing")  
 
     
     
@@ -62,11 +62,17 @@ See the BASH tutorial to get started. https://github.com/Joseph7e/HCGS-BASH-tuto
 
 
 ## Activate the genomics environment
-This is important and ensures that all the programs we use are updates and in working order. You'll need to do this everytime you login to the server.
+This is important and ensures that all the programs we use are updates and in working order. You'll need to do this everytime you login to the server and you need general bioinformatic tools.
 
 ```
 conda activate genomics
 
+conda info --envs
+```
+
+## BASH practice
+
+```
 # setup working directory
 mkdir ~/bash-practice
 cd ~/bash-practice
@@ -76,12 +82,7 @@ cp -r /home/share/examples/example-reads/ ./
 
 ```
 
-
-
 [Link explaining the 'Read Name Format'](http://support.illumina.com/content/dam/illumina-support/help/BaseSpaceHelp_v2/Content/Vault/Informatics/Sequencing_Analysis/BS/swSEQ_mBS_FASTQFiles.htm): SampleName_Barcode_LaneNumber_001.fastq.gz
-
-
-
 
 
 
