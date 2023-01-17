@@ -35,13 +35,11 @@ Prepare Library           |  Sequence DNA
 
 1. The targeted region should have little intraspecific variation (< 2% sequence identity) and enough interspecific variation (>2% sequence identity) to distinguish different species.
 
-2. It should be standardized so that the same DNA region is used across the range of taxa.
+2. It should be phylogenetically informative to allow the placement of newly barcoded organisms to accurate lineages. 
 
-3. It should be phylogenetically informative to allow the placement of newly barcoded organisms to accurate lineages. 
+3. The primer binding sites should be highly conserved and specific, so DNA amplification is reliable across all taxa in question. This is especially important for en mass community analyses (metabarcoding) and will make the development of universal primers more efficient and help alleviate potential PCR bias. 
 
-4. The primer binding sites should be highly conserved and specific, so DNA amplification is reliable across all taxa in question. This is especially important for en mass community analyses (metabarcoding) and will make the development of universal primers more efficient and help alleviate potential PCR bias. 
-
-5. For studies utilizing HTS the target region must be small enough to be recovered on one or two sequencing reads when using paired-end information (<600 bps). Shorter sequences are also preferred for recovering barcoding sequences from preserved or degraded samples. 
+4. For studies utilizing HTS the target region must be small enough to be recovered on one or two sequencing reads when using paired-end information (<600 bps). Shorter sequences are also preferred for recovering barcoding sequences from preserved or degraded samples. 
 
 
 ## Common primers used at HCGS
