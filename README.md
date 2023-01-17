@@ -7,6 +7,7 @@ In this tutorial we'll go over how to use QIIME 2 to analyze metabarcoding data.
 
 <ins>Metabarcoding</ins> - barcoding of DNA/RNA or eDNA/eRNA in a manner that allows for identification of many taxa within the same sample.  
 
+<br />
 
 Collect Sample            |  Extract DNA
 :-------------------------:|:-------------------------:
@@ -21,14 +22,13 @@ Prepare Library           |  Sequence DNA
 :-------------------------:|:-------------------------:
 <img src="https://jef.works//assets/blog/librarystructure.png" width="520">  |  <img src="https://github.com/Joseph7e/HCGS-Genomics-Tutorial/blob/master/hiseq.png?raw=true" width="320">
 
-  
+<br />
+<br />
+
   ## How NGS sequencing works
 [![sequencing by synthesis](img/youtube-video-sequencing.png)](https://www.youtube.com/watch?v=p4vKJJlNTKA&t=9s "Sequencing")  
-
-    
-    
-  
-  
+<br />
+<br />
 ## Common primers used at HCGS
 | Target-Organisms      | Gene | Region    | Location/Name | Length (bp)      | Forward-primer         | Reverse-primer              | F_length | R_length | Reference                  |
 | --------------------- | ---- | --------- | ------------- | ---------------- | ---------------------- | --------------------------- | -------- | -------- | -------------------------- |
@@ -38,8 +38,8 @@ Prepare Library           |  Sequence DNA
 | Fungal and micro euks | ITS  | ITS1-ITS2 | ITS1F-ITS2    | ~250 - 600       | CTTGGTCATTTAGAGGAAGTAA | GCTGCGTTCTTCATCGATGC        | 22       | 20       | White et al., 1990         |
 | Fish                  | 12S  | V5        | MiFish        | ~163 - 185       | GTCGGTAAAACTCGTGCCAGC  | CATAGTGGGGTATCTAATCCCAGTTTG | 21       | 27       | Miya et al, 2015           |
 
-
-
+<br />
+<br />
 
 ## General Notes:
 **For each program that we run in this tutorial I have provided a link to the manual**. These manuals provide a thorough explanation of what exactly we are doing. Before running the workflow on your own data you should read the manual/publication for the program.
@@ -48,13 +48,15 @@ Throughout this tutorial the commands you will type are formatted into the gray 
 
 This tutorial assumes a general understanding of the BASH environment. **You should be familiar with moving around the directories and understand how to manipulate files**.
 
-See the BASH tutorial to get started. https://github.com/Joseph7e/HCGS-BASH-tutorial
 
 **Remember to tab complete!** There is a reason the tab is my favorite key. It prevents spelling errors and allows you to work much faster. Remember if a filename isn't auto-completing you can hit tab twice to see your files while you continue typing your command. If a file doesn't auto-complete it means you either have a spelling mistake, are in a different directory than you originally thought, or that it doesn't exist.
 
-
+<br />
+<br />
 
 ## Connect to the server
+See the BASH tutorials to get started.
+
 [BASH Tutorials](https://github.com/Joseph7e/HCGS-BASH-tutorial)
 
 [INBRE BASH Tutorials](https://geiselmed.dartmouth.edu/nhinbre/bioinformatics-modules/)
