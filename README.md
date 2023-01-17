@@ -9,7 +9,7 @@ In this tutorial we'll go over how to use QIIME 2 to analyze metabarcoding data.
 
 <ins>Polymerase chain reaction (PCR)</ins> - an amplification technique for cloning the specific or targeted parts of a DNA sequence to generate thousands to millions of copies of DNA of interest.
 
-<ins>Metabarcoding</ins> - barcoding of DNA/RNA or eDNA/eRNA in a manner that allows for identification of many taxa within the same sample.  
+<ins>Metabarcoding</ins> - barcoding of DNA/RNA or eDNA/eRNA in a manner that allows for identification of many taxa within the same sample.  Also known as "amplicon" sequencing, or "marker gene sequencing".
 
 <ins>Metagenomics</ins> -  *en mass* sequencing of a community of organisms using whole-genome shotgun sequencing   
 
