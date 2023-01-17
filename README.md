@@ -213,8 +213,6 @@ scp USERNAME@ron.sr.unh.edu:/home/GROUP/USERNAME/bash-practice/fastqc_raw-reads/
 
 [Getting Oriented](https://docs.qiime2.org/2022.2/tutorials/overview/#let-s-get-oriented-flowcharts)
 
-[Metadata file](https://docs.google.com/spreadsheets/d/1ZiRFItD26vgetcQQft41yiZgTJULstbdYrcprlgLws0/edit?usp=sharing)
-
 
 
 ## Example Data
