@@ -184,11 +184,11 @@ You can also count the number of reads for each of your files like you did for t
 ## Qiime2 documentation
 ![alt text](https://pbs.twimg.com/profile_images/788836988933681153/5x29uqk3_400x400.jpg)
 
-[Qiime2 user documentation](https://docs.qiime2.org/2022.8/)
+[Qiime2 user documentation](https://docs.qiime2.org/2022.2/)
 
 [Qiime2 visuals](https://view.qiime2.org/)
 
-[Moving Pictures Tutorial](https://docs.qiime2.org/2022.8/tutorials/moving-pictures/)
+[Moving Pictures Tutorial](https://docs.qiime2.org/2022.2/tutorials/moving-pictures/)
 
 [Getting Oriented](https://docs.qiime2.org/2022.2/tutorials/overview/#let-s-get-oriented-flowcharts)
 
@@ -217,10 +217,11 @@ We will use the Qiime2 command line interface, there is also the ["Artifact" pyt
 
 ### Copy starting data
 ~~~bash
-mkdir mkdir hcgs-qiime2-workshop
-cd mkdir hcgs-qiime2-workshop
+mkdir hcgs-qiime2-workshop
+cd hcgs-qiime2-workshop
 cp /home/share/examples/cocaine_mouse/* .
 ls
+
 # mdat.tsv
 
 less -S mdat.tsv
