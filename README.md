@@ -61,7 +61,7 @@ See the BASH tutorials to get started.
 
 [INBRE BASH Tutorials](https://geiselmed.dartmouth.edu/nhinbre/bioinformatics-modules/)
 
-
+# Start!
 
 ## Activate the genomics environment
 This is important and ensures that all the programs we use are updates and in working order. You'll need to do this everytime you login to the server and you need general bioinformatic tools.
