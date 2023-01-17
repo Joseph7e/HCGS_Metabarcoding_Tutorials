@@ -1,7 +1,7 @@
 # Overview - 16S Metabarcoding with Qiime 2
 In this tutorial we'll go over how to use QIIME 2 to analyze metabarcoding data. We'll start with an introduction about how metabarcoding (aka amplicon) data is produced and with a refresher for working in the BASH command-line environment. 
 
-## What is metabarcoding?
+## Some definitions
 
 <ins>DNA taxonomy</ins> in a broad sense, means any form of analysis that uses variation in DNA sequence data to inform species delimitation. 
 
