@@ -1,5 +1,5 @@
 # Overview - 16S Metabarcoding with Qiime 2
-In this tutorial we'll go over how to use QIIME 2 to analyze metabarcoding data. We'll start with an introduction to how metabarcoding (aka amplicon) data is produced and a refresher for working in the BASH command-line environment. 
+In this tutorial we'll go over how to use QIIME 2 to analyze metabarcoding data. We'll start with an introduction about how metabarcoding (aka amplicon) data is produced and with a refresher for working in the BASH command-line environment. 
 
 ## What is metabarcoding?
 
