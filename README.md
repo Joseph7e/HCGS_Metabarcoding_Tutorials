@@ -12,7 +12,6 @@ Collect Sample            |  Extract DNA
 :-------------------------:|:-------------------------:
 <img src="https://www.sandberg.co.uk/wp-content/uploads/water-testing-1020x510.jpg" width="420">|  <img src="https://www.cephamls.com/wp-content/uploads/2019/02/DNA-Extraction-Figure-3-22.jpg" width="420">
 
-:-------------------------:|:-------------------------:
 <img src="https://cdn.kastatic.org/ka-perseus-images/6d0650905be0b38de294f614a5449d9559d3387a.png" width="420"> | <img src="https://cdn.kastatic.org/ka-perseus-images/41f0e0fd8b49ba824db0eb707015557bb72ae72b.png" width="420">
 
 
@@ -21,9 +20,14 @@ Prepare Library           |  Sequence DNA
 <img src="https://jef.works//assets/blog/librarystructure.png" width="520">  |  <img src="https://github.com/Joseph7e/HCGS-Genomics-Tutorial/blob/master/hiseq.png?raw=true" width="320">
 
   
+  ## How NGS sequencing works
+[![sequencing by synthesis](img/youtube-video-sequencing.PNG)](https://www.youtube.com/watch?v=p4vKJJlNTKA&t=9s "Sequencing")  
+
+    
+    
   
   
-# Common primers used at HCGS
+## Common primers used at HCGS
 | Target-Organisms      | Gene | Region    | Location/Name | Length (bp)      | Forward-primer         | Reverse-primer              | F_length | R_length | Reference                  |
 | --------------------- | ---- | --------- | ------------- | ---------------- | ---------------------- | --------------------------- | -------- | -------- | -------------------------- |
 | Prokaryotes           | 16S  | V4        | 515F-806R     | ~390             | GTGYCAGCMGCCGCGGTAA    | GGACTACNVGGGTWTCTAAT        | 19       | 20       | Walters et al. 2016        |
@@ -42,99 +46,41 @@ Throughout this tutorial the commands you will type are formatted into the gray 
 
 This tutorial assumes a general understanding of the BASH environment. **You should be familiar with moving around the directories and understand how to manipulate files**.
 
-See the BASH tutorial and primers to get started. https://github.com/Joseph7e/HCGS-BASH-tutorial
+See the BASH tutorial to get started. https://github.com/Joseph7e/HCGS-BASH-tutorial
 
 **Remember to tab complete!** There is a reason the tab is my favorite key. It prevents spelling errors and allows you to work much faster. Remember if a filename isn't auto-completing you can hit tab twice to see your files while you continue typing your command. If a file doesn't auto-complete it means you either have a spelling mistake, are in a different directory than you originally thought, or that it doesn't exist.
 
-## How NGS sequencing works
-[![sequencing by synthesis](img/youtube-video-sequencing.PNG)](https://www.youtube.com/watch?v=p4vKJJlNTKA&t=9s "Sequencing")
-
-Your starting data is found within a shared directory within your group folder (one directory level up). To start we will move a set of Sample data into your home directories. Each of these samples represent the genome of a unique and novel microbe that has not been seen before (except by me). Inside this directory are Illumina HiSeq 2500, paired-end, 250 bp sequencing reads. Looking in this directory you should see two files per sample, the forward and reverse reads. These files are in **FASTQ** format (see below).
-
-[Link explaining the 'Read Name Format'](http://support.illumina.com/content/dam/illumina-support/help/BaseSpaceHelp_v2/Content/Vault/Informatics/Sequencing_Analysis/BS/swSEQ_mBS_FASTQFiles.htm): SampleName_Barcode_LaneNumber_001.fastq.gz
 
 
-Important note: In the above command I use the "\*" character to view the Sample directory, I would normally just type out the entire path using tab complete (which is what you should do). This wildcard will match any string of characters. I use this because everyone will have a different Sample name. To make this tutorial as general as possible I need to use these wildcards throughout the tutorial. In addition I may use Sample_X instead of Sample_\*. In these cases be sure to type out your complete sample name!, the wildcards probably won't work 
-
-
-
-## Qiime2 documentation
-![alt text](https://pbs.twimg.com/profile_images/788836988933681153/5x29uqk3_400x400.jpg)
-
-[Qiime2 user documentation](https://docs.qiime2.org/2022.8/)
-
-[Qiime2 visuals](https://view.qiime2.org/)
-
-[Moving Pictures Tutorial](https://docs.qiime2.org/2022.8/tutorials/moving-pictures/)
-
-[Getting Oriented](https://docs.qiime2.org/2022.2/tutorials/overview/#let-s-get-oriented-flowcharts)
-
-[Metadata file](https://docs.google.com/spreadsheets/d/1ZiRFItD26vgetcQQft41yiZgTJULstbdYrcprlgLws0/edit?usp=sharing)
-
-
-
-# Example Data
-
-These data are from set of mouse fecal samples provided by [Jason Bubier from The Jackson Laboratory](https://www.jax.org/research-and-faculty/faculty/research-scientists/jason-bubier).
-The samples were run targeting the V1-V3 region of the 16S gene using the 27F - 534R primer pair on an Illumnina MiSeq on a paired end 300 bp run.
-
-### Primers
-~~~
-27F [20 bp]
- 5'AGM GTT YGA TYM YGG CTC AG
-534R [17 bp]
- 5'ATT ACC GCG GCT GCT GG
-~~~
-For Metadata we have the sex, strain, age in days.
-Our goal is to examine the correlation of the fecal microbiome we observe with these metadata.
-We will primarily use the [Qiime 2](https://qiime2.org/) bioinformatics platform.
-Qiime 2 is free and open source and available from Linux and OSX.
-We will use the Qiime2 command line interface, there is also the ["Artifact" python API](https://docs.qiime2.org/2019.4/interfaces/artifact-api/) which can be more powerful.
-
-
-#### Connect to the server
+## Connect to the server
 [BASH Tutorials](https://github.com/Joseph7e/HCGS-BASH-tutorial)
 
 [INBRE BASH Tutorials](https://geiselmed.dartmouth.edu/nhinbre/bioinformatics-modules/)
 
 
-### Copy starting data
-~~~bash
-mkdir mkdir hcgs-qiime2-workshop
-cd mkdir hcgs-qiime2-workshop
-cp /home/share/examples/cocaine_mouse/* .
-ls
-# mdat.tsv
-
-less -S mdat.tsv
-#SampleID       Sex     Treatment       Strain  Date    PrePost Dataset HaveBred        PerformedPCR    Description     pptreatment     Testing
-#q2:types       categorical     categorical     categorical     numeric categorical     categorical     categorical     categorical             categorical     categorical
-JBCDJ00OLJ1STT0B00000191821C7M7FGT1904904       F       Sham    CC004   0       Pre     Dataset1                Jax     19182_1 PreSham Train
-JBCDJ00OLK1STT0B00000191671C7M7FGT1904905       F       Coc     CC041   0       Pre     Dataset1                Jax     19167_1 PreCoc  Train
-JBCDJ00OLL1STT0B00000191771C7M7FGT1904906       M       Sham    CC004   0       Pre     Dataset1                Jax     19177_1 PreSham Test
-JBCDJ00OLM1STT0B00000191861C7M7FGT1904907       M       Coc     CC004   0       Pre     Dataset1                Jax     19186_1 PreCoc  Test
-JBCDJ00OLN1STT0B00000191791C7M7FGT1904908       F       Coc     CC004   0       Pre     Dataset1                Jax     19179_1 PreCoc  Train
-JBCDJ00OLO1STT0B00000191691C7M7FGT1904909       F       Sham    CC041   0       Pre     Dataset1                Jax     19169_1 PreSham Test
-JBCDJ00OLP1STT0B00000191731C7M7FGT1904910       M       Coc     CC041   0       Pre     Dataset1                Jax     19173_1 PreCoc  Test
-JBCDJ00OLQ1STT0B00000191641C7M7FGT1904911       M       Coc     CC041   0       Pre     Dataset1                Jax     19164_1 PreCoc  Train
-JBCDJ00OLR1STT0B00000191801C7M7FGT1904912       F       Sham    CC004   0       Pre     Dataset1                Jax     19180_1 PreSham Train
-JBCDJ00OLS1STT0B00000191831C7M7FGT1904913       F       Coc     CC004   0       Pre     Dataset1                Jax     19183_1 PreCoc  Train
-JBCDJ00OLT1STT0B00000191841C7M7FGT1904914       M       Sham    CC004   0       Pre     Dataset1                Jax     19184_1 PreSham Train
-JBCDJ00OLU1STT0B00000191711C7M7FGT1904915       M       Coc     CC041   0       Pre     Dataset1                Jax     19171_1 PreCoc  Train
-JBCDJ00OLV1STT0B00000191681C7M7FGT1904916       F       Sham    CC041   0       Pre     Dataset1                Jax     19168_1 PreSham Train
-
-~~~
-When we look at the metadata file we see the metadata that we will be able to use during our analysis
-
-
-Now we're ready to import the data into qiime. We will be using the qiime 2 command line interface, there is also a python interface called the Artifact API which can be a powerful tool.
 
 ## Activate the genomics environment
 This is important and ensures that all the programs we use are updates and in working order. You'll need to do this everytime you login to the server.
 
 ```
 conda activate genomics
+
+# setup working directory
+mkdir ~/bash-practice
+cd ~/bash-practice
+
+# copy example reads
+cp -r /home/share/examples/example-reads/ ./
+
 ```
+
+
+
+[Link explaining the 'Read Name Format'](http://support.illumina.com/content/dam/illumina-support/help/BaseSpaceHelp_v2/Content/Vault/Informatics/Sequencing_Analysis/BS/swSEQ_mBS_FASTQFiles.htm): SampleName_Barcode_LaneNumber_001.fastq.gz
+
+
+
+
 
 
 ## Sequencing Read Assessment
@@ -142,15 +88,7 @@ conda activate genomics
 Note the file extension - fastq.**gz**. Since these files are usually pretty big it is standard to receive them compressed. To view these files ourselves (which you normally wouldn't do) you either have to decompress the data with gzip or by using variations of the typical commands. Instead of 'cat' we use 'zcat', instead of grep we can use 'zgrep'. Below I show both ways.
        
 ```bash
-# Examine the reads with zcat, I use the wildcard '*' to match the file since everyone's names will be different. Use tab complete and there is no need for the wildcards.
-zcat Sample*/*_R1_* | more
-# unzip the data and view
-gunzip Sample*/*_R1_*
-more Sample*/*_R1_*
-# rezip the data
-gzip Sample*/*_R1_*
-# Examine reads directly with less
-less -S Sample*/*_R1_*
+less -S example-reads/*_R1_*
 ```
 
 #### Fastq File Format
@@ -239,46 +177,82 @@ readlink -f fastqc_raw-reads/*.html
 scp USERNAME@ron.sr.unh.edu:/home/GROUP/USERNAME/mdibl-t3-2019-WGS/fastqc_raw-reads/*.html /path/to/put/files
 ```
 
-## Adapter and Quality Trimming
-Trimmomatic
-manual: http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf
-
-alternative tools: [cutadapt](http://cutadapt.readthedocs.io/en/stable/guide.html), [skewer](https://github.com/relipmoc/skewer)
-
-* Run Trimmomatic
-
-You may have noticed from the fastqc output the some of your reads have poor qualities towards the end of the sequence, this is especially true for the reverse reads and is common for Illumina data. You may also notice that the fastqc report 'failed' for adapter content. The Trimmomtic program will be used to trim these low quality bases and to remove the adapters. I created a wrapper script called trim_script_TruSeq.sh which makes this program much easier to use. It is available on the server by calling its name, it is also available on this github repository. For this wrapper script **the input is the raw forward and reverse reads and the output will be new trimmed fastq files**. We will use these trimmed reads for our genome assembly. When you are more comfortable using BASH you can call Trimmomatic directly by using the manual or by copying the code from the provided script.
-
-```bash
-# Run wrapper script
-trim_scriptV2.sh Sample_*/*_R1_* Sample_*/*_R2_*
-# if you want to see inside the program you can take a look.
-which trim_scriptV2.sh
-more /usr/local/bin/trim_scriptV2.sh
-```
-
-* Move the trimmed reads to new directory - remember its a good idea to keep the directory clean.
-* Note: This is already done with the new trim_script version 2.
-```bash
-mkdir trimmed_reads
-# move all the reads into the new directory
-mv *fastq.gz trimmed_reads/
-# confirm that the files have moved
-ls trimmed_reads/
-```
-
-When the program finishes it outputs four files. paired_forward.fastq.gz, paired_reverse.fastq.gz, and two unpaired reads. These output files are cleaned reads, which hopefully retained the highly confident sequences and have removed the adapters from the sequences. Some sequences will be lost entirely, some will lose a few bases off the ends, and some won't be trimmed at all. When a reverse read is lost but a forward read is maintained, the forward read will be written to the unpaired_forward.fastq.gz file (and vise-versa).
-
 ![fastqc](https://user-images.githubusercontent.com/18738632/42241259-ef2d5f0c-7ed7-11e8-8a7f-f7407979202f.png)
 
 Similar to above, you can run FASTQC again with your new trimmed reads. Comparing the original html and the new one you should note the differences (see above).
 
 You can also count the number of reads for each of your files like you did for the raw reads. How does this compare to the original count? What percentage of your reads did you lose? How many reads are unpaired?
 
-## Import data into Qiime2
+
+
+## Qiime2 documentation
+![alt text](https://pbs.twimg.com/profile_images/788836988933681153/5x29uqk3_400x400.jpg)
+
+[Qiime2 user documentation](https://docs.qiime2.org/2022.8/)
+
+[Qiime2 visuals](https://view.qiime2.org/)
+
+[Moving Pictures Tutorial](https://docs.qiime2.org/2022.8/tutorials/moving-pictures/)
+
+[Getting Oriented](https://docs.qiime2.org/2022.2/tutorials/overview/#let-s-get-oriented-flowcharts)
+
+[Metadata file](https://docs.google.com/spreadsheets/d/1ZiRFItD26vgetcQQft41yiZgTJULstbdYrcprlgLws0/edit?usp=sharing)
+
+
+
+## Example Data
+
+These data are from set of mouse fecal samples provided by [Jason Bubier from The Jackson Laboratory](https://www.jax.org/research-and-faculty/faculty/research-scientists/jason-bubier).
+The samples were run targeting the V1-V3 region of the 16S gene using the 27F - 534R primer pair on an Illumnina MiSeq on a paired end 300 bp run.
+
+### Primers
+~~~
+27F [20 bp]
+ 5'AGM GTT YGA TYM YGG CTC AG
+534R [17 bp]
+ 5'ATT ACC GCG GCT GCT GG
+~~~
+For Metadata we have the sex, strain, age in days.
+Our goal is to examine the correlation of the fecal microbiome we observe with these metadata.
+We will primarily use the [Qiime 2](https://qiime2.org/) bioinformatics platform.
+Qiime 2 is free and open source and available from Linux and OSX.
+We will use the Qiime2 command line interface, there is also the ["Artifact" python API](https://docs.qiime2.org/2019.4/interfaces/artifact-api/) which can be more powerful.
+
+
+### Copy starting data
+~~~bash
+mkdir mkdir hcgs-qiime2-workshop
+cd mkdir hcgs-qiime2-workshop
+cp /home/share/examples/cocaine_mouse/* .
+ls
+# mdat.tsv
+
+less -S mdat.tsv
+#SampleID       Sex     Treatment       Strain  Date    PrePost Dataset HaveBred        PerformedPCR    Description     pptreatment     Testing
+#q2:types       categorical     categorical     categorical     numeric categorical     categorical     categorical     categorical             categorical     categorical
+JBCDJ00OLJ1STT0B00000191821C7M7FGT1904904       F       Sham    CC004   0       Pre     Dataset1                Jax     19182_1 PreSham Train
+JBCDJ00OLK1STT0B00000191671C7M7FGT1904905       F       Coc     CC041   0       Pre     Dataset1                Jax     19167_1 PreCoc  Train
+JBCDJ00OLL1STT0B00000191771C7M7FGT1904906       M       Sham    CC004   0       Pre     Dataset1                Jax     19177_1 PreSham Test
+JBCDJ00OLM1STT0B00000191861C7M7FGT1904907       M       Coc     CC004   0       Pre     Dataset1                Jax     19186_1 PreCoc  Test
+JBCDJ00OLN1STT0B00000191791C7M7FGT1904908       F       Coc     CC004   0       Pre     Dataset1                Jax     19179_1 PreCoc  Train
+JBCDJ00OLO1STT0B00000191691C7M7FGT1904909       F       Sham    CC041   0       Pre     Dataset1                Jax     19169_1 PreSham Test
+JBCDJ00OLP1STT0B00000191731C7M7FGT1904910       M       Coc     CC041   0       Pre     Dataset1                Jax     19173_1 PreCoc  Test
+JBCDJ00OLQ1STT0B00000191641C7M7FGT1904911       M       Coc     CC041   0       Pre     Dataset1                Jax     19164_1 PreCoc  Train
+JBCDJ00OLR1STT0B00000191801C7M7FGT1904912       F       Sham    CC004   0       Pre     Dataset1                Jax     19180_1 PreSham Train
+JBCDJ00OLS1STT0B00000191831C7M7FGT1904913       F       Coc     CC004   0       Pre     Dataset1                Jax     19183_1 PreCoc  Train
+JBCDJ00OLT1STT0B00000191841C7M7FGT1904914       M       Sham    CC004   0       Pre     Dataset1                Jax     19184_1 PreSham Train
+JBCDJ00OLU1STT0B00000191711C7M7FGT1904915       M       Coc     CC041   0       Pre     Dataset1                Jax     19171_1 PreCoc  Train
+JBCDJ00OLV1STT0B00000191681C7M7FGT1904916       F       Sham    CC041   0       Pre     Dataset1                Jax     19168_1 PreSham Train
+
+~~~
+When we look at the metadata file we see the metadata that we will be able to use during our analysis
+
+
+# Import data into Qiime2
+
 
 ~~~bash
-# Anatomy of a qiime command
+## Anatomy of a qiime command
 qiime plugin action\
    --i-inputs  foo\       ## input arguments start with --i
    --p-parameters bar\    ## paramaters start with --p
