@@ -90,7 +90,7 @@ cp -r /home/share/examples/example-reads/ ./
 
 ## Sequencing Read Assessment
 
-Note the file extension - fastq.**gz**. Since these files are usually pretty big it is standard to receive them compressed. To view these files ourselves (which you normally wouldn't do) you either have to decompress the data with gzip or by using variations of the typical commands. Instead of 'cat' we use 'zcat', instead of grep we can use 'zgrep'. Below I show both ways.
+Note the file extension - fastq.**gz**. Since these files are usually pretty big it is standard to receive them compressed. To view these files ourselves (which you normally wouldn't do) you either have to decompress the data with gunzip or by using variations of the typical commands. Instead of 'cat' we use 'zcat', instead of grep we can use 'zgrep'. Or just use less which allows you to stream a zipped file for viewing.
        
 ```bash
 less -S example-reads/*_R1_*
