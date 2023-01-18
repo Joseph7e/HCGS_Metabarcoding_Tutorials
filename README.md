@@ -31,6 +31,8 @@ Prepare Library           |  Sequence DNA
 :-------------------------:|:-------------------------:
 <img src="https://jef.works//assets/blog/librarystructure.png" width="520">  |  <img src="https://github.com/Joseph7e/HCGS-Genomics-Tutorial/blob/master/hiseq.png?raw=true" width="320">
 
+![](img/PCR-twostep.png)
+
 <br />
 image references: 
 <br />
@@ -270,4 +272,19 @@ JBCDJ00OLV1STT0B00000191681C7M7FGT1904916       F       Sham    CC041   0       
 
 ~~~
 When we look at the metadata file we see the metadata that we will be able to use during our analysis
+
+
+## Running Qiime2 commands
+
+~~~bash
+## Anatomy of a qiime command
+qiime plugin action\
+   --i-inputs  foo\       ## input arguments start with --i
+   --p-parameters bar\    ## paramaters start with --p
+   --m-metadata mdat\     ## metadata options start with --m
+   --o-outputs out        ## and output starts with --o
+~~~
+Qiime works on two types of files, Qiime Zipped Archives (.qza) and Qiime Zipped Visualizations (.qzv).  Both are simply renamed .zip archives that hold the appropriate qiime data in a structured format.  This includes a "provenance" for that object which tracks the history of commands that led to it.  The qza files contain data, while the qzv files contain visualizations displaying some data.  We'll look at a quality summary of our reads to help decide how to trim and truncate them.
+
+
 
