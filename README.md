@@ -272,7 +272,6 @@ JBCDJ00OLV1STT0B00000191681C7M7FGT1904916       F       Sham    CC041   0       
 ~~~
 When we look at the metadata file we see the metadata that we will be able to use during our analysis
 
-
 ## Running Qiime2 commands
 
 ~~~bash
@@ -285,5 +284,42 @@ qiime plugin action\
 ~~~
 Qiime works on two types of files, Qiime Zipped Archives (.qza) and Qiime Zipped Visualizations (.qzv).  Both are simply renamed .zip archives that hold the appropriate qiime data in a structured format.  This includes a "provenance" for that object which tracks the history of commands that led to it.  The qza files contain data, while the qzv files contain visualizations displaying some data.  We'll look at a quality summary of our reads to help decide how to trim and truncate them.
 
+# Import data into Qiime2
+~~~bash
+qiime tools import\
+   --type 'SampleData[PairedEndSequencesWithQuality]'\
+   --input-path manifest.csv\
+   --output-path demux\
+   --input-format PairedEndFastqManifestPhred33
+   ## the correct extension is automatically added for the output by qiime.
+~~~
 
+## Quality Control
+Now we want to look at the quality profile of our reads.  Our goal is to determine how much we should truncate the reads before the paired end reads are joined.  This will depend on the length of our amplicon, and the quality of the reads.
+~~~bash
+qiime demux summarize\
+   --i-data demux.qza\
+   --o-visualization demux
+~~~
+When looking we want to answer these questions:
+
+How much total sequence do we need to preserve an sufficient overlap to merge the paired end reads?
+
+How much poor quality sequence can we truncate before trying to merge?
+
+In this case we know our amplicons are about 390 bp long, and we want to preserve approximately 50 bp combined overlap.  So our target is to retain ~450 bp of total sequence from the two reads.  450 bp/2 = 225 bp but looking at the demux.qzv, the forward reads seem to be higher quality than the reverse, so let's retain more of the forward and less of the reverse.
+
+## Denoising
+We're now ready to denoise our data. Through qiime we will be using the program DADA2, the goal is to take our imperfectly sequenced reads, and recover the "real" sequence composition of the sample that went into the sequencer.
+DADA2 does this by learning the error rates for each transition between bases at each quality score.  It then assumes that all of the sequences are errors off the same original sequence.  Then using the error rates it calculates the likelihood of each sequence arising.  Sequences with a likelihood falling below a threshold are split off into their own groups and the algorithm is iteratively applied.  Because of the error model we should only run samples which were sequenced together through dada2 together, as different runs may have different error profiles.  We can merge multiple runs together after dada2.  During this process dada2 also merges paired end reads, and checks for chimeric sequences.
+~~~bash
+qiime dada2 denoise-paired\
+   --i-demultiplexed-seqs demux.qza\
+   --p-trim-left-f 20 --p-trim-left-r 17\
+   --p-trunc-len-f 295 --p-trunc-len-r 275\
+   --p-n-threads 18\
+   --o-denoising-stats dns\
+   --o-table table\
+   --o-representative-sequences rep-seqs
+~~~
 
