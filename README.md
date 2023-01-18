@@ -323,3 +323,63 @@ qiime dada2 denoise-paired\
    --o-representative-sequences rep-seqs
 ~~~
 
+Now lets visualize the results of Dada2.
+~~~bash
+## Metadata on denoising
+qiime metadata tabulate\
+   --m-input-file dns.qza\
+   --o-visualization dns
+## Unique sequences accross all samples
+qiime feature-table tabulate-seqs\
+   --i-data rep-seqs.qza\
+   --o-visualization rep-seqs
+## Table of per-sample sequence counts
+qiime feature-table summarize\
+   --i-table table.qza\
+   --m-sample-metadata-file mdat.tsv\
+   --o-visualization table
+~~~
+Looking at dns.qzv first we can see how many sequences passed muster for each sample at each step performed by dada2.  Here we are seeing great final sequence counts, and most of the sequences being filtered in the initial quality filtering stage.  Relatively few are failing to merge, which suggests we did a good job selecting our truncation lengths.
+
+In the table.qzv we can see some stats on our samples.  We have millions of counts spread across thousands of unique sequences and tens of samples.  We'll come back to the table.qzv file when we want to select our rarefaction depth.
+
+In the rep-seqs.qzv we can see the sequences and the distribution of sequence lengths.  Each sequence is a link to a web-blast against the ncbi nucleotide database.
+The majority of the sequences we observe are in our expected length range.
+Later on we can use this to blast specific sequences we are interested in against the whole nucleotide database.
+
+## Taxonomic Assignment
+To assign taxonomy we will use a naive bayes classifier trained by the qiime2 authors on our gene region.
+If we were using a different primer pair we would want to use a different method, like vsearch.
+
+~~~bash
+qiime feature-classifier classify-consensus-vsearch\
+   --i-query rep-seqs.qza\
+   --i-reference-reads /home/share/databases/SILVA_databases/silva-138-99-seqs.qza\
+   --i-reference-taxonomy /home/share/databases/SILVA_databases/silva-138-99-tax.qza\
+   --p-maxaccepts 5 --p-query-cov 0.4\
+   --p-perc-identity 0.7\
+   --o-classification taxonomy\
+   --p-threads 72
+~~~
+
+The classifier uses the kmers of the sequence as it's features.
+The classification is the assignment that maximizes the bayes likelihood of that taxonomic assignment with the assumption that the kmers are independent.
+This method can work well even when that assumption is violated.
+~~~
+Bayes Law:
+posterior = (prior x evidence)/evidence
+~~~
+This is a commonly used machine learning method, including in the similar problem of text categorization.
+You should only use it when you have a trained and validated classifier for your specific target region.
+Let's visualize the taxonomy in a few different ways.
+~~~bash
+qiime metadata tabulate\
+   --m-input-file taxonomy.qza\
+   --o-visualization taxonomy.qzv
+
+qiime taxa barplot --i-table table.qza\
+   --i-taxonomy taxonomy.qza\
+   --o-visualization taxa-barplot\
+   --m-metadata-file mdat.tsv
+~~~
+
