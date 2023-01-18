@@ -347,9 +347,19 @@ In the rep-seqs.qzv we can see the sequences and the distribution of sequence le
 The majority of the sequences we observe are in our expected length range.
 Later on we can use this to blast specific sequences we are interested in against the whole nucleotide database.
 
+
+# Extract data from qiime2
+qiime tools extract --input-path table.qza --output-path extracted-table 
+biom convert -i extracted-table/*/data/feature-table.biom -o feature-table.tsv --to-tsv 
+qiime tools extract --input-path rep-seqs.qza  --output-path extracted-seqs 
+
+
+
+
 ## Taxonomic Assignment
-To assign taxonomy we will use a naive bayes classifier trained by the qiime2 authors on our gene region.
-If we were using a different primer pair we would want to use a different method, like vsearch.
+VSEARCH uses a fast heuristic based on words shared by the query and target sequences in order to quickly identify similar sequence
+
+The main qiime2 tutorials utilizes a pre-trained Naive Bayes classifier (machine learning) and the q2-feature-classifier plugin. Here we will utilize Vsearch which works well out-of-the-box for most datasets. The output is similiar to BLAST.
 
 ~~~bash
 qiime feature-classifier classify-consensus-vsearch\
@@ -362,16 +372,6 @@ qiime feature-classifier classify-consensus-vsearch\
    --p-threads 72
 ~~~
 
-The classifier uses the kmers of the sequence as it's features.
-The classification is the assignment that maximizes the bayes likelihood of that taxonomic assignment with the assumption that the kmers are independent.
-This method can work well even when that assumption is violated.
-~~~
-Bayes Law:
-posterior = (prior x evidence)/evidence
-~~~
-This is a commonly used machine learning method, including in the similar problem of text categorization.
-You should only use it when you have a trained and validated classifier for your specific target region.
-Let's visualize the taxonomy in a few different ways.
 ~~~bash
 qiime metadata tabulate\
    --m-input-file taxonomy.qza\
