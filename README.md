@@ -476,7 +476,7 @@ https://www.drive5.com/usearch/manual/rare.gif
 
 
 ```bash
-qiime diversity alpha-rarefaction   --i-table table.qza   --i-phylogeny rooted-tree.qza   --p-max-depth 5000   --p-steps 100 --m-metadata-file mdat.tsv   --o-visualization alpha-rarefaction.qzv
+qiime diversity alpha-rarefaction   --i-table bacteria-table.qza   --i-phylogeny rooted-tree.qza   --p-max-depth 5000   --p-steps 100 --m-metadata-file mdat.tsv   --o-visualization alpha-rarefaction.qzv
 
 
 ```
