@@ -383,3 +383,181 @@ qiime taxa barplot --i-table table.qza\
    --m-metadata-file mdat.tsv
 ~~~
 
+## Diversity analysis
+Our next step is to look at the diversity in the sequences of these samples.
+Here we will use the differences between the sequences in the sample, and metrics to quantify those differences to tell us about the diversity, richness and evenness of the sequence variants found in the samples.
+In doing so we will construct a de novo phylogenetic tree, which works much better if we first remove any spurious sequences that are not actually the target region of our 16S gene.
+To do that we will use our taxonomic assignments to filter out sequences that remained Unassigned, are assigned only as Bacteria or are Eukaryotes.  We should look at what we are filtering out and try and find out what it is.
+
+~~~bash
+## exact match to filter out unassigned and Bacteria
+## exact because bacteria is part of many other that we want to keep.
+qiime taxa filter-table\
+   --i-table table.qza\
+   --i-taxonomy taxonomy.qza\
+   --p-exclude "Unassigned,D_0__Bacteria"\
+   --p-mode exact\
+   --o-filtered-table bacteria-table
+
+## Partial match to Eukaryota to filter out any Euks
+qiime taxa filter-table\
+   --i-table bacteria-table.qza\
+   --i-taxonomy taxonomy.qza\
+   --p-exclude "Eukaryota"\
+   --o-filtered-table bacteria-table2
+
+mv bacteria-table2.qza bacteria-table.qza
+
+## Any additional sequences that we should exclude can be filtered on a "per feature basis"
+## In this case we had some sequences that look like they were sequenced backwards!
+
+qiime feature-table filter-features\
+   --i-table bacteria-table.qza\
+   --m-metadata-file exclude.tsv\
+   --p-exclude-ids\
+   --o-filtered-table bact-table.qza
+
+## How much did we filter out?
+qiime feature-table summarize\
+   --i-table bacteria-table.qza\
+   --m-sample-metadata-file mdat.tsv\
+   --o-visualization bacteria-table
+
+## Does it look very different?
+qiime taxa barplot --i-table bacteria-table.qza\
+   --i-taxonomy taxonomy.qza\
+   --o-visualization bacteria-taxa-barplot\
+   --m-metadata-file mdat.tsv
+
+## Filter the sequences to reflect the new table.
+qiime feature-table filter-seqs\
+   --i-table bacteria-table.qza\
+   --i-data rep-seqs.qza\
+   --o-filtered-data bacteria-rep-seqs
+
+qiime feature-table tabulate-seqs\
+   --i-data bacteria-rep-seqs.qza\
+   --o-visualization bacteria-rep-seqs
+~~~
+
+Now that we have only our target region we can create the de novo phylogenetic tree.
+We'll use the default qiime2 pipeline because it is quick and easy to run, while providing good results.
+This pipeline first performs a multi sequence alignment with mafft, this alignment would be significantly worse if we had not removed the non target sequences.
+It then masks highly variable parts of the sequence as they add noise to the tree.
+It then uses FastTree to create an unrooted phylogenetic tree which is then midpoint rooted.
+
+~~~bash
+qiime phylogeny align-to-tree-mafft-fasttree\
+   --i-sequences bacteria-rep-seqs.qza\
+   --o-alignment aligned-rep-seqs.qza\
+   --o-masked-alignment masked-aligned-rep-seqs.qza\
+   --o-tree unrooted-tree.qza\
+   --o-rooted-tree rooted-tree.qza\
+   --p-n-threads 18
+~~~
+
+Now we can look at the [tree we created on iToL](https://itol.embl.de/tree/20922221311082651562009639).
+And for reference here is [the tree if we had not filtered it](https://itol.embl.de/tree/209222213110293351562082149).
+We can see that the filtering upped the contrast between different groups.
+
+Now we are ready to run some diversity analysis!
+We are going to start by running qiimes core phylogenetic pipeline, this will take into account the relationships between sequences, as represented by our phylogenetic tree.
+It will calculate a few key metrics for us, faiths-pd a measure of phylogenetic diversity, evenness, a measure of evenness and several beta statistics, like weighted and unweighted unifracs.
+To do these comparisons we need to make our samples comparable to each other.
+The way this is generally done is to rarefy the samples to the same sampling depth.
+We can use the bacteria-table.qzv we made earlier to inform this decision.
+We want to balance setting as high as possible of a rarefaction depth to preserve as many reads as possible, while setting it low enough to preserve as many samples as possible.
+
+
+## CReate rarefaction plots
+https://docs.qiime2.org/2022.2/plugins/available/diversity/alpha-rarefaction/?highlight=rarefaction
+
+https://www.drive5.com/usearch/manual/rare.gif
+
+
+```bash
+
+
+
+```
+
+~~~bash
+qiime diversity core-metrics-phylogenetic\
+   --i-phylogeny rooted-tree.qza\
+   --i-table bacteria-table.qza\
+   --p-sampling-depth 89503\
+   --m-metadata-file mdat.tsv\
+   --output-dir core-metrics-results
+~~~
+From this initial step we can start by looking at some PCoA plots, we'll augment the PCoA with some of the most predictive features.
+
+~~~bash
+qiime feature-table relative-frequency\
+   --i-table core-metrics-results/rarefied_table.qza\
+   --o-relative-frequency-table core-metrics-results/relative_rarefied_table
+
+qiime diversity pcoa-biplot\
+   --i-features core-metrics-results/relative_rarefied_table.qza\
+   --i-pcoa core-metrics-results/unweighted_unifrac_pcoa_results.qza\
+   --o-biplot core-metrics-results/unweighted_unifrac_pcoa_biplot
+
+qiime emperor biplot\
+   --i-biplot core-metrics-results/unweighted_unifrac_pcoa_biplot.qza\
+   --m-sample-metadata-file mdat.tsv\
+   --o-visualization core-metrics-results/unweighted_unifrac_pcoa_biplot
+~~~
+We can see that the strains separate well, which implies that we should be able to find some separating distances in our data.
+
+Lets start looking for those differences by looking at differences in diversity as a whole.
+For numeric metadata categories we can plot our favorite metrics with the value of that metadata.
+
+~~~bash
+qiime diversity alpha-correlation\
+   --i-alpha-diversity core-metrics-results/faith_pd_vector.qza\
+   --m-metadata-file mdat.tsv\
+   --o-visualization core-metrics-results/faith-alpha-correlation
+~~~
+
+Then for the categorical metadata catagories we can plot some box and whisker plots.
+~~~bash
+qiime diversity alpha-group-significance\
+   --i-alpha-diversity core-metrics-results/faith_pd_vector.qza\
+   --m-metadata-file mdat.tsv\
+   --o-visualization core-metrics-results/faith-group-significance
+~~~
+
+## Differential Abundance Analysis
+Now lets combine the taxonomy with the diversity analysis to see if there are related groups of organisms that are differentially abundant groups within the samples.
+We'll start by combining our table and tree into a hierarchy and set of balances.
+Balances are the weighted log ratios of sets of features for samples.
+And we will be looking for significant differences in the balances between groups of samples.
+~~~bash
+qiime gneiss ilr-phylogenetic\
+   --i-table bacteria-table.qza\
+   --i-tree rooted-tree.qza\
+   --o-balances balances --o-hierarchy hierarchy
+~~~
+To view the sets used in the balances we can plot out a heatmap of feature abundance which highlights the ratios.
+~~~bash
+qiime gneiss dendrogram-heatmap\
+   --i-table bacteria-table.qza\
+   --i-tree hierarchy.qza\
+   --m-metadata-file mdat.tsv\
+   --m-metadata-column Strain\
+   --p-color-map seismic\
+   --o-visualization heatmap.qzv
+~~~
+With this we can begin to look at specific balances to see their composition.
+~~~bash
+for ((i=0; i<10; i++)); do
+  qiime gneiss balance-taxonomy\
+     --i-table bacteria-table.qza\
+     --i-tree hierarchy.qza\
+     --i-taxonomy taxonomy.qza\
+     --p-taxa-level 5\
+     --p-balance-name y$i\
+     --m-metadata-file mdat.tsv\
+     --m-metadata-column Strain\
+     --o-visualization y${i}_taxa_summary.qzv
+done
+~~~
