@@ -31,7 +31,7 @@ Prepare Library           |  Sequence DNA
 :-------------------------:|:-------------------------:
 <img src="https://jef.works//assets/blog/librarystructure.png" width="520">  |  <img src="https://github.com/Joseph7e/HCGS-Genomics-Tutorial/blob/master/hiseq.png?raw=true" width="320">
 
-![](img/PCR-twostep.png)
+![](img/PCR-twostep.jpg)
 
 <br />
 image references: 
