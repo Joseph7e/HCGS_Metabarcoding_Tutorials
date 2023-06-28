@@ -485,7 +485,7 @@ qiime diversity alpha-rarefaction   --i-table bacteria-table.qza   --i-phylogeny
 qiime diversity core-metrics-phylogenetic\
    --i-phylogeny rooted-tree.qza\
    --i-table bacteria-table.qza\
-   --p-sampling-depth 89503\
+   --p-sampling-depth 16951\
    --m-metadata-file mdat.tsv\
    --output-dir core-metrics-results
 ~~~
