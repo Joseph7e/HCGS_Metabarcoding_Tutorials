@@ -247,7 +247,7 @@ We will use the Qiime2 command line interface, there is also the ["Artifact" pyt
 ~~~bash
 mkdir hcgs-qiime2-workshop
 cd hcgs-qiime2-workshop
-cp /home/share/examples/cocaine_mouse/* .
+cp -r /home/share/examples/cocaine_mouse/* .
 ls
 
 # mdat.tsv
